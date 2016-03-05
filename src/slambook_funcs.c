@@ -28,10 +28,6 @@ getInput(profile *personInfo)
     fgets(personInfo->age, sizeof(personInfo->age), stdin);
     _removeNewline(personInfo->age);
 
-    printf("Student Number: ");
-    fgets(personInfo->studentNumber, sizeof(personInfo->studentNumber), stdin);
-    _removeNewline(personInfo->studentNumber);
-
     printf("Course: ");
     fgets(personInfo->course, sizeof(personInfo->course), stdin);
     _removeNewline(personInfo->course);
@@ -39,6 +35,10 @@ getInput(profile *personInfo)
     printf("Year: ");
     fgets(personInfo->year, sizeof(personInfo->year), stdin);
     _removeNewline(personInfo->year);
+
+    printf("Student Number: ");
+    fgets(personInfo->studentNumber, sizeof(personInfo->studentNumber), stdin);
+    _removeNewline(personInfo->studentNumber);
 
     printf("Student data entered successfully.\n");
 }

@@ -32,7 +32,6 @@ main(int argc, char **argv)
     }
 
     // Menu
-    int idx = 0;
     int opt = 0;
     while (1) {
         printMenu(role);
@@ -45,23 +44,24 @@ main(int argc, char **argv)
             return 0;
         }
 
+        char studentNumber[10];
         switch (role) {
             case ADMIN:
                 if (opt == 2 || opt == 3) {
                     displayNodes(head);
-                    printf("Choose index: ");
-                    scanf("%d", &idx);
-                    scanf("%c", &throwaway);
+                    printf("Enter student number: ");
+                    fgets(studentNumber, sizeof(studentNumber), stdin);
+                    _removeNewline(studentNumber);
                 }
 
                 if (opt == 1) {
-                    addNode(head, &currIndex);
+                    addNode(head);
                     saveDataToFile(fp, head);
                 } else if (opt == 2) {
-                    updateNode(head, idx);
+                    updateNode(head, studentNumber);
                     saveDataToFile(fp, head);
                 } else if (opt == 3) {
-                    deleteNode(head, idx);
+                    deleteNode(head, studentNumber);
                     saveDataToFile(fp, head);
                 } else if (opt == 4) {
                     displayNodes(head);
@@ -77,11 +77,11 @@ main(int argc, char **argv)
                     saveDataToFile(fp, head);
                 } else if (opt == 2) {
                     displayNodes(head);
-                    printf("Choose index: ");
-                    scanf("%d", &idx);
-                    scanf("%c", &throwaway);
+                    printf("Enter student number: ");
+                    fgets(studentNumber, sizeof(studentNumber), stdin);
+                    _removeNewline(studentNumber);
                     saveDataToFile(fp, head);
-                    updateNode(head, idx);
+                    updateNode(head, studentNumber);
                 } else if (opt == 3) {
                     displayNodes(head);
                 } else if (opt == 4) {

@@ -24,7 +24,7 @@ readDataFromFile(FILE *fp, struct node *head)
                 index++;
             }
 
-            addNodeFromArray(head, info, currIndex);
+            addNodeFromArray(head, info);
         }
 
         fclose(fp);
@@ -46,7 +46,7 @@ saveDataToFile(FILE *fp, struct node *head)
     } else {
         struct node *current = head;
         while (current != NULL) {
-            if (current != NULL && current->id != 0) {
+            if (current != NULL && strcmp(current->val.studentNumber, "") != 0) {
                 fprintf(fp, "%s|%s|%s|%s|%s|%s\n",
                         current->val.name,
                         current->val.nickname,

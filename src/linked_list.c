@@ -23,7 +23,6 @@ addNodeFromArray(struct node *head, char str[][256])
     }
 
     current->next = malloc(sizeof(struct node));
-    current->next->id = ++(*currIndex);
     strcpy(current->next->val.name, str[0]);
     strcpy(current->next->val.nickname, str[1]);
     strcpy(current->next->val.age, str[2]);
@@ -34,12 +33,12 @@ addNodeFromArray(struct node *head, char str[][256])
 }
 
 void
-deleteNode(struct node *head, char[] studentNumber)
+deleteNode(struct node *head, char studentNumber[])
 {
     struct node *current = head;
     while (current->next != NULL) {
-        if (strcmp(current->next->studentNumber, studentNumber) == 0) {
-            printf("Deleted student number %s...\n", current->next->val->studentNumber);
+        if (strcmp(current->next->val.studentNumber, studentNumber) == 0) {
+            printf("Deleted student number %s...\n", current->next->val.studentNumber);
             free(current->next);
             current->next = current->next->next;
             break;
@@ -50,11 +49,11 @@ deleteNode(struct node *head, char[] studentNumber)
 }
 
 void
-updateNode(struct node *head, char[] studentNumber)
+updateNode(struct node *head, char studentNumber[])
 {
     struct node *current = head;
     while (current->next != NULL) {
-        if (strcmp(current->next->studentNumber, studentNumber) == 0) {
+        if (strcmp(current->next->val.studentNumber, studentNumber) == 0) {
             getInput(&current->next->val);
             break;
         }
@@ -68,7 +67,7 @@ displayNodes(struct node *head)
 {
     struct node *current = head;
     while (current != NULL) {
-        if (current != NULL && current->id != 0) {
+        if (current != NULL && strcmp(current->val.studentNumber, "") != 0) {
             printEntry(current->val);
         }
 

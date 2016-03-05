@@ -7,9 +7,9 @@
         char name[64];
         char nickname[32];
         char age[32];
-        char course[7];
-        char year[1];
-        char studentNumber[10];
+        char course[10];
+        char year[2];
+        char studentNumber[12];
     } profile;
 
 #endif
