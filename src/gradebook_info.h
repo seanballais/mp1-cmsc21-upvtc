@@ -4,7 +4,7 @@
     typedef enum { ADMIN = 1, TEACHER, STUDENT } roles;
 
     typedef struct {
-        char name[33];
+        char name[129];
         char nickname[17];
         char age[3];
         char course[11];
