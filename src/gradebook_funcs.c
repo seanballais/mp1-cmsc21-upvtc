@@ -17,22 +17,22 @@ getInput(profile *personInfo)
     printf("New Entry\n");
 
     printf("Name: ");
-    personInfo->name = GetString();
+    strcpy(personInfo->name, GetString());
 
     printf("Nickname: ");
-    personInfo->nickname = GetString();
+    strcpy(personInfo->nickname, GetString());
 
     printf("Age: ");
-    personInfo->age = GetString();
+    strcpy(personInfo->age, GetString());
 
     printf("Course: ");
-    personInfo->course = GetString();
+    strcpy(personInfo->course, GetString());
 
     printf("Year: ");
-    personInfo->year = GetString();
+    strcpy(personInfo->year, GetString());
 
     printf("Student Number: ");
-    personInfo->studentNumber = GetString();
+    strcpy(personInfo->studentNumber, GetString());
 
     printf("Student data entered successfully.\n");
 }
@@ -143,7 +143,8 @@ GetInt(void)
 
         // return an int if only an int (possibly with
         // leading and/or trailing whitespace) was provided
-        int n; char c;
+        int n;
+        char c;
         if (sscanf(line, " %d %c", &n, &c) == 1)
         {
             free(line);

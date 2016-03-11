@@ -4,8 +4,13 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
+    #include <stdbool.h>
+    #include <limits.h>
 
     #include "gradebook_info.h"
+
+    #define CAPACITY 128
+    typedef char* string;
 
     void printEntry(profile personInfo);
     void getInput(profile *personInfo);

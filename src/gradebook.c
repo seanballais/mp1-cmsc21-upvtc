@@ -43,13 +43,13 @@ main(int argc, char **argv)
             return 0;
         }
 
-        char studentNumber[10];
+        char studentNumber[12];
         switch (role) {
             case ADMIN:
                 if (opt == 2 || opt == 3) {
                     displayNodes(head);
                     printf("Enter student number: ");
-                    studentNumber = GetString();
+                    strcpy(studentNumber, GetString());
                 }
 
                 if (opt == 1) {
@@ -77,8 +77,8 @@ main(int argc, char **argv)
                     displayNodes(head);
 
                     printf("Enter student number: ");
-                    studentNumber = GetString();
-                    
+                    strcpy(studentNumber, GetString());
+
                     saveDataToFile(fp, head);
                     updateNode(head, studentNumber);
                 } else if (opt == 3) {
