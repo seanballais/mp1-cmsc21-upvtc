@@ -5,8 +5,8 @@
     #include <stdlib.h>
     #include <string.h>
 
-    #include "slambook_info.h"
-    #include "slambook_funcs.h"
+    #include "gradebook_info.h"
+    #include "gradebook_funcs.h"
 
     struct node {
         profile val;
@@ -19,5 +19,6 @@
     void updateNode(struct node *head, char studentNumber[]);
     void displayNodes(struct node *head);
     void freeList(struct node *head);
+    void cleanNode(struct node *head);
 
 #endif

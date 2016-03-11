@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "slambook_info.h"
+#include "gradebook_info.h"
+#include "gradebook_funcs.h"
 #include "linked_list.h"
-#include "slambook_funcs.h"
 #include "file_access.h"
 
 int
@@ -35,10 +35,9 @@ main(int argc, char **argv)
     int opt = 0;
     while (1) {
         printMenu(role);
-        scanf("%d", &opt);
-        scanf("%c", &throwaway);
+        opt = GetInt();
         if ((role == ADMIN && (opt < 1 || opt > 5)) ||
-            (role == TEACHER && (opt < 1 || opt > 3)) ||
+            (role == TEACHER && (opt < 1 || opt > 4)) ||
             (role == STUDENT && (opt < 1 || opt > 2))) {
             printf("Invalid input.\n");
             return 0;
@@ -50,8 +49,7 @@ main(int argc, char **argv)
                 if (opt == 2 || opt == 3) {
                     displayNodes(head);
                     printf("Enter student number: ");
-                    fgets(studentNumber, sizeof(studentNumber), stdin);
-                    _removeNewline(studentNumber);
+                    studentNumber = GetString();
                 }
 
                 if (opt == 1) {
@@ -77,9 +75,10 @@ main(int argc, char **argv)
                     saveDataToFile(fp, head);
                 } else if (opt == 2) {
                     displayNodes(head);
+
                     printf("Enter student number: ");
-                    fgets(studentNumber, sizeof(studentNumber), stdin);
-                    _removeNewline(studentNumber);
+                    studentNumber = GetString();
+                    
                     saveDataToFile(fp, head);
                     updateNode(head, studentNumber);
                 } else if (opt == 3) {

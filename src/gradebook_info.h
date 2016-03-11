@@ -6,10 +6,10 @@
     typedef struct {
         char name[64];
         char nickname[32];
-        char age[32];
+        char age[10];
         char course[10];
-        char year[2];
-        char studentNumber[12];
+        char year[10];
+        char studentNumber[20];
     } profile;
 
 #endif

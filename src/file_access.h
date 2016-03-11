@@ -3,7 +3,7 @@
 
     #include <stdio.h>
 
-    #include "slambook_info.h"
+    #include "gradebook_info.h"
     #include "linked_list.h"
 
     void readDataFromFile(FILE *fp, struct node *head);

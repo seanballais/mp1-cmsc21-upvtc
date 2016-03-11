@@ -5,11 +5,13 @@
     #include <stdlib.h>
     #include <string.h>
 
-    #include "slambook_info.h"
+    #include "gradebook_info.h"
 
     void printEntry(profile personInfo);
     void getInput(profile *personInfo);
     void _removeNewline(char* input);
     void printMenu(roles role);
+    char* GetString(void);
+    int GetInt(void);
 
 #endif

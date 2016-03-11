@@ -1,4 +1,5 @@
 #include "linked_list.h"
+#include "gradebook_funcs.h"
 #include <string.h>
 
 void
