@@ -6,6 +6,7 @@
     #include <string.h>
     #include <stdbool.h>
     #include <limits.h>
+    #include <float.h>
 
     #include "gradebook_info.h"
 
@@ -18,5 +19,6 @@
     void printMenu(roles role);
     char* GetString(void);
     int GetInt(void);
+    double GetDouble(void);
 
 #endif

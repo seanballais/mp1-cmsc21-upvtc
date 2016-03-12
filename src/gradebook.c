@@ -79,8 +79,8 @@ main(int argc, char **argv)
                     printf("Enter student number: ");
                     strcpy(studentNumber, GetString());
 
-                    saveDataToFile(fp, head);
                     updateNode(head, studentNumber);
+                    saveDataToFile(fp, head);
                 } else if (opt == 3) {
                     displayNodes(head);
                 } else if (opt == 4) {

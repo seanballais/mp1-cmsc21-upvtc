@@ -4,10 +4,10 @@ void
 printEntry(profile personInfo)
 {
     printf("Name: %s\n", personInfo.name);
-    printf("Nickname: %s\n", personInfo.nickname);
     printf("Age: %s\n", personInfo.age);
     printf("Student Number: %s\n", personInfo.studentNumber);
     printf("Course and Year: %s %s\n", personInfo.course, personInfo.year);
+    printf("Grade: %.3lf\n", personInfo.grade);
     printf("---\n");
 }
 
@@ -18,9 +18,6 @@ getInput(profile *personInfo)
 
     printf("Name: ");
     strcpy(personInfo->name, GetString());
-
-    printf("Nickname: ");
-    strcpy(personInfo->nickname, GetString());
 
     printf("Age: ");
     strcpy(personInfo->age, GetString());
@@ -149,6 +146,34 @@ GetInt(void)
         {
             free(line);
             return n;
+        }
+        else
+        {
+            free(line);
+            printf("Retry: ");
+        }
+    }
+}
+
+// Copied from the CS50 Library
+double
+GetDouble(void)
+{
+    // try to get a double from user
+    while (true)
+    {
+        // get line of text, returning DBL_MAX on failure
+        string line = GetString();
+        if (line == NULL)
+            return DBL_MAX;
+
+        // return a double if only a double (possibly with
+        // leading and/or trailing whitespace) was provided
+        double d; char c;
+        if (sscanf(line, " %lf %c", &d, &c) == 1)
+        {
+            free(line);
+            return d;
         }
         else
         {

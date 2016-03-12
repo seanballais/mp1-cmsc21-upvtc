@@ -1,6 +1,5 @@
 #include "linked_list.h"
 #include "gradebook_funcs.h"
-#include <string.h>
 
 void
 addNode(struct node *head)
@@ -25,7 +24,6 @@ addNodeFromArray(struct node *head, char str[][256])
 
     current->next = malloc(sizeof(struct node));
     strcpy(current->next->val.name, str[0]);
-    strcpy(current->next->val.nickname, str[1]);
     strcpy(current->next->val.age, str[2]);
     strcpy(current->next->val.course, str[3]);
     strcpy(current->next->val.year, str[4]);
@@ -55,8 +53,22 @@ updateNode(struct node *head, char studentNumber[])
     struct node *current = head;
     while (current->next != NULL) {
         if (strcmp(current->next->val.studentNumber, studentNumber) == 0) {
-            getInput(&current->next->val);
-            break;
+            printf("Update grade or student information? 1 for grade, 2 for information.\n");
+            printf("Input: ");
+            int opt = GetInt();
+            if (opt == 2) {
+                getInput(&current->next->val);
+                break;
+            } else if (opt == 1) {
+                printf("Enter new student grade: ");
+                current->next->val.grade = GetDouble();
+                break;
+            } else {
+                printf("Invalid input.\n");
+                exit(0);
+            }
+
+            printf("Updated...\n");
         }
 
         current = current->next;

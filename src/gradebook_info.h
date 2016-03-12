@@ -4,12 +4,12 @@
     typedef enum { ADMIN = 1, TEACHER, STUDENT } roles;
 
     typedef struct {
-        char name[129];
-        char nickname[17];
+        char name[128];
         char age[3];
-        char course[11];
+        char course[10];
         char year[5];
-        char studentNumber[17];
+        char studentNumber[16];
+        double grade;
     } profile;
 
 #endif
