@@ -18,6 +18,7 @@
     void deleteNode(struct node *head, char studentNumber[]);
     void updateNode(struct node *head, char studentNumber[]);
     void displayNodes(struct node *head);
+    void displayNode(struct node *head, char studentNumber[]);
     void freeList(struct node *head);
     void cleanNode(struct node *head);
 

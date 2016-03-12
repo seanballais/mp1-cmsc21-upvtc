@@ -63,12 +63,10 @@ main(int argc, char **argv)
                     saveDataToFile(fp, head);
                 } else if (opt == 4) {
                     displayNodes(head);
-                } else if (opt == 5) {
+                } else {
                     freeList(head);
                     return 0;
                 }
-
-                break;
             case TEACHER:
                 if (opt == 1) {
                     addNode(head);
@@ -83,21 +81,19 @@ main(int argc, char **argv)
                     saveDataToFile(fp, head);
                 } else if (opt == 3) {
                     displayNodes(head);
-                } else if (opt == 4) {
+                } else {
                     freeList(head);
                     return 0;
                 }
-
-                break;
             case STUDENT:
                 if (opt == 1) {
-                    displayNodes(head);
-                } else if (opt == 2) {
+                    printf("Enter student number: ");
+                    char* studentNumber = GetString();
+                    displayNode(head, studentNumber);
+                } else {
                     freeList(head);
                     return 0;
                 }
-
-                break;
         }
     }
 

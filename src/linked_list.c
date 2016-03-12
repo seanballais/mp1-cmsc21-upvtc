@@ -69,7 +69,7 @@ updateNode(struct node *head, char studentNumber[])
                 break;
             } else {
                 printf("Invalid input.\n");
-                exit(0);
+                return;
             }
 
             printf("Updated...\n");
@@ -90,6 +90,24 @@ displayNodes(struct node *head)
 
         current = current->next;
     }
+}
+
+void
+displayNode(struct node *head, char studentNumber[])
+{
+    struct node *current = head;
+    while (current != NULL) {
+        if (current != NULL && strcmp(current->val.studentNumber, studentNumber) == 0) {
+            printf("---\n");
+            printEntry(current->val);
+            return;
+        }
+
+        current = current->next;
+    }
+
+    printf("Unknown student number. Exiting...\n");
+    return;
 }
 
 void
