@@ -24,10 +24,14 @@ addNodeFromArray(struct node *head, char str[][256])
 
     current->next = malloc(sizeof(struct node));
     strcpy(current->next->val.name, str[0]);
-    strcpy(current->next->val.age, str[2]);
-    strcpy(current->next->val.course, str[3]);
-    strcpy(current->next->val.year, str[4]);
-    strcpy(current->next->val.studentNumber, str[5]);
+    strcpy(current->next->val.age, str[1]);
+    strcpy(current->next->val.course, str[2]);
+    strcpy(current->next->val.year, str[3]);
+    strcpy(current->next->val.studentNumber, str[4]);
+
+    // Time to convert the grade string to a double we can process next time.
+    sscanf(str[5], "%lf", &current->next->val.grade);
+
     current->next->next = NULL;
 }
 
