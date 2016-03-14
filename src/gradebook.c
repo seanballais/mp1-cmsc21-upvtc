@@ -9,31 +9,36 @@
 int
 main(int argc, char **argv)
 {
-    char throwaway = 'a';
     struct node *head = malloc(sizeof(struct node));
     head->next = NULL;
 
     FILE *fp = NULL;
     readDataFromFile(fp, head);
 
-    printf("GRADEBOOK!\n");
-    printf("Choose role\n");
-    printf("    1) ADMIN\n");
-    printf("    2) TEACHER\n");
-    printf("    3) STUDENT\n");
-    printf("Input: ");
-
-    int role = 0;
-    scanf("%d", &role);
-    scanf("%c", &throwaway);
-    if (role < 1 || role > 4) {
-        printf("Invalid input.\n");
-        return 0;
-    }
-
     // Menu
-    int opt = 0;
+    int opt = -1;
+    int role = -1;
     while (1) {
+        if (opt == -1) {
+            printf("GRADEBOOK!\n");
+            printf("Choose role\n");
+            printf("    1) ADMIN\n");
+            printf("    2) TEACHER\n");
+            printf("    3) STUDENT\n");
+            printf("    4) EXIT\n");
+            printf("Input: ");
+
+            role = GetInt();
+            if (role < 1 || role > 5) {
+                printf("Invalid input.\n");
+                return 0;
+            } else if (role == 4) {
+                printf("Exiting...\n");
+                freeList(head);
+                return 0;
+            }
+        }
+
         printMenu(role);
         opt = GetInt();
         if ((role == ADMIN && (opt < 1 || opt > 5)) ||
@@ -63,10 +68,11 @@ main(int argc, char **argv)
                     saveDataToFile(fp, head);
                 } else if (opt == 4) {
                     displayNodes(head);
-                } else {
-                    freeList(head);
-                    return 0;
+                } else if (opt == 5) {
+                    opt = -1;
                 }
+
+                break;
             case TEACHER:
                 if (opt == 1) {
                     addNode(head);
@@ -81,19 +87,21 @@ main(int argc, char **argv)
                     saveDataToFile(fp, head);
                 } else if (opt == 3) {
                     displayNodes(head);
-                } else {
-                    freeList(head);
-                    return 0;
+                } else if (opt == 4) {
+                    opt = -1;
                 }
+
+                break;
             case STUDENT:
                 if (opt == 1) {
                     printf("Enter student number: ");
                     char* studentNumber = GetString();
                     displayNode(head, studentNumber);
-                } else {
-                    freeList(head);
-                    return 0;
+                } else if (opt == 2) {
+                    opt = -1;
                 }
+
+                break;
         }
     }
 
