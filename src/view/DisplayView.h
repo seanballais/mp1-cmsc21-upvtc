@@ -9,12 +9,15 @@
 #ifndef DISPLAYVIEW_H
 #define DISPLAYVIEW_H
 
+    #include <stdio.h>
     #include <stdlib.h>
 
-    #define ADMIN 0
-    #define TEACHER 1
-    #define STUDENT 2
+    // Project headers
+    #include "../utils/UserDefinitions.h"
 
-    void DisplayView_printMenu(const unsigned int userRole);
+    void DisplayView_printMenu(const privilege userPrivilege);
+    void DisplayView_printAdminSubMenu(const tasks userTask);
+    void DisplayView_printAdminUpdateStudentSubMenu();
+    void DisplayView_printAdminUpdateSubjectSubMenu();
 
 #endif
