@@ -14,8 +14,6 @@ printEntry(profile personInfo)
 void
 getInput(profile *personInfo)
 {
-    printf("New Entry\n");
-
     printf("Name: ");
     strcpy(personInfo->name, GetString());
 
@@ -37,7 +35,7 @@ getInput(profile *personInfo)
 void
 printMenu(roles role)
 {
-    printf("GRADINGBOOK Menu\n");
+    printf("GRADING BOOK Menu\n");
 
     int optionNum = 0;
     if (role != STUDENT) {

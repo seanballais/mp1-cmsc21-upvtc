@@ -20,6 +20,7 @@ main(int argc, char **argv)
     int role = -1;
     while (1) {
         if (opt == -1) {
+            system("clear");
             printf("GRADEBOOK!\n");
             printf("Choose role\n");
             printf("    1) ADMIN\n");
@@ -39,6 +40,8 @@ main(int argc, char **argv)
             }
         }
 
+        system("clear");
+
         printMenu(role);
         opt = GetInt();
         if ((role == ADMIN && (opt < 1 || opt > 5)) ||
@@ -51,6 +54,7 @@ main(int argc, char **argv)
         char studentNumber[12];
         switch (role) {
             case ADMIN:
+                system("clear");
                 if (opt == 2 || opt == 3) {
                     displayNodes(head);
                     printf("Enter student number: ");
@@ -61,19 +65,22 @@ main(int argc, char **argv)
                     addNode(head);
                     saveDataToFile(fp, head);
                 } else if (opt == 2) {
-                    updateNode(head, studentNumber);
+                    updateNode(head, studentNumber, ADMIN);
                     saveDataToFile(fp, head);
                 } else if (opt == 3) {
                     deleteNode(head, studentNumber);
                     saveDataToFile(fp, head);
                 } else if (opt == 4) {
                     displayNodes(head);
+                    printf("Press any key to continue...");
+                    getchar();
                 } else if (opt == 5) {
                     opt = -1;
                 }
 
                 break;
             case TEACHER:
+                system("clear");
                 if (opt == 1) {
                     addNode(head);
                     saveDataToFile(fp, head);
@@ -83,20 +90,27 @@ main(int argc, char **argv)
                     printf("Enter student number: ");
                     strcpy(studentNumber, GetString());
 
-                    updateNode(head, studentNumber);
+                    updateNode(head, studentNumber, TEACHER);
                     saveDataToFile(fp, head);
                 } else if (opt == 3) {
                     displayNodes(head);
+
+                    printf("Press any key to continue...");
+                    getchar();
                 } else if (opt == 4) {
                     opt = -1;
                 }
 
                 break;
             case STUDENT:
+                system("clear");
                 if (opt == 1) {
                     printf("Enter student number: ");
                     char* studentNumber = GetString();
                     displayNode(head, studentNumber);
+
+                    printf("Press any key to continue...");
+                    getchar();
                 } else if (opt == 2) {
                     opt = -1;
                 }

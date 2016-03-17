@@ -52,27 +52,33 @@ deleteNode(struct node *head, char studentNumber[])
 }
 
 void
-updateNode(struct node *head, char studentNumber[])
+updateNode(struct node *head, char studentNumber[], int privilege)
 {
     struct node *current = head;
     while (current->next != NULL) {
         if (strcmp(current->next->val.studentNumber, studentNumber) == 0) {
-            printf("Update grade or student information? 1 for grade, 2 for information.\n");
-            printf("Input: ");
-            int opt = GetInt();
-            if (opt == 2) {
+            if (privilege == 1) { // ADMIN
+                printf("Update student information.\n");
                 getInput(&current->next->val);
                 break;
-            } else if (opt == 1) {
-                printf("Enter new student grade: ");
-                current->next->val.grade = GetDouble();
-                break;
-            } else {
-                printf("Invalid input.\n");
-                return;
-            }
+            } else if (privilege == 2) { // TEACHER
+                printf("Update grade or student information? 1 for grade, 2 for information.\n");
+                printf("Input: ");
+                int opt = GetInt();
+                if (opt == 2) {
+                    getInput(&current->next->val);
+                    break;
+                } else if (opt == 1) {
+                    printf("Enter new student grade: ");
+                    current->next->val.grade = GetDouble();
+                    break;
+                } else {
+                    printf("Invalid input.\n");
+                    return;
+                }
 
-            printf("Updated...\n");
+                printf("Updated...\n");
+            }
         }
 
         current = current->next;
