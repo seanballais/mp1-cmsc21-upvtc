@@ -1,12 +1,12 @@
 /*
- * DisplayView.h
+ * HandleInputView.h
  *
- * Contains the functions that handles any input from the user.
+ * Contains the functions that handles any text input in the view.
  *
  */
 
-#ifndef DISPLAYVIEW_H
-#define DISPLAYVIEW_H
+#ifndef HANDLEINPUTVIEW_H
+#define HANDLEINPUTVIEW_H
 
     #include <stdio.h>
     #include <stdlib.h>
@@ -14,6 +14,9 @@
     // Project headers
     #include "../utils/UserDefinitions.h"
 
-    
+    // Included libraries
+    #include "../../lib/cs50/cs50.h"
+
+    void HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege);
 
 #endif

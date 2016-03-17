@@ -70,8 +70,7 @@ DisplayView_printMenu(const privilege userPrivilege)
 }
 
 void
-DisplayView_printAdminSubMenu(const privilege userPrivilege,
-                              const tasks userTask)
+DisplayView_printAdminSubMenu(const tasks userTask)
 {
     /*
      * Prints a menu that displays the subtasks that are available

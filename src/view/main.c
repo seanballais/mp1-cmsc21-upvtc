@@ -24,7 +24,8 @@ main()
     system("clear");
     DisplayView_printUserPrivilegeMenu();
     printf("Input: ");
-    privilege userPrivilege = GetInt();
+    // Subtract by 1 since we're starting from 0
+    privilege userPrivilege = GetInt() - 1;
 
     // Print the user privilege specific menu
     DisplayView_printMenu(userPrivilege);
