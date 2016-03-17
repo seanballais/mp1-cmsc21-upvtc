@@ -8,11 +8,12 @@
 #include <stdio.h>
 
 // Project headers
-#include "view/ViewState.h"
+#include "view/DisplayView.h"
+#include "utils/UserDefinitions.h"
 
 int
 main()
 {
-    viewState view_state;
+    privilege userPrivilege;
     
 }
