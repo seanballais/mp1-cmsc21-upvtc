@@ -13,6 +13,7 @@
 
 // View headers
 #include "DisplayView.h"
+#include "HandleInputView.h"
 
 // Included libraries
 #include "../../lib/cs50/cs50.h"
