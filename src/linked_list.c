@@ -7,10 +7,11 @@ addNode(struct node *head)
     struct node *current = head;
     while (current->next != NULL) {
         current = current->next;
+
+        current->next = malloc(sizeof(struct node));
+        getInput(&current->next->val);
     }
 
-    current->next = malloc(sizeof(struct node));
-    getInput(&current->next->val);
     current->next->next = NULL;
 }
 

@@ -28,6 +28,13 @@ getInput(profile *personInfo)
     printf("Student Number: ");
     strcpy(personInfo->studentNumber, GetString());
 
+    printf("Number of subjects to add: ");
+    int numSubject = GetInt();
+    for (int i = 0; i < numSubject; i++) {
+        printf("Subject name: ");
+        strcpy(personInfo->subjects[i][0], GetString());
+    }
+
     printf("Student data entered successfully.\n");
 }
 

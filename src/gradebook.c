@@ -168,7 +168,7 @@ main(int argc, char **argv)
                                 range[8],
                                 range[9]);
 
-                            printf("Press any key to continue...");
+                            printf("Press Enter key to continue...");
                             getchar();
                         }
 
@@ -178,13 +178,33 @@ main(int argc, char **argv)
                     }
                 } else if (opt == 2) {
                     updateNode(head, studentNumber, ADMIN);
+
+                    printf("Update subjects? (1 for yes / 2 for no) ");
+                    int option = GetInt();
+                    if (option == 1) {
+                        struct node *current = head;
+                        while (current->next != NULL) {
+                            if (strcmp(current->next->val.studentNumber, studentNumber) == 0) {
+                                printf("Number of subjects to add: ");
+                                int numSubject = GetInt();
+
+                                for (int i = 0; i < numSubject; i++) {
+                                    printf("Subject name: ");
+                                    strcpy(current->next->val.subjects[i][0], strcat(GetString(), "|"));
+                                }
+                            }
+
+                            current = current->next;
+                        }
+                    }
+
                     saveDataToFile(fp, head);
                 } else if (opt == 3) {
                     deleteNode(head, studentNumber);
                     saveDataToFile(fp, head);
                 } else if (opt == 4) {
                     displayNodes(head);
-                    printf("Press any key to continue...");
+                    printf("Press Enter key to continue...");
                     getchar();
                 } else if (opt == 5) {
                     opt = -1;
@@ -272,21 +292,21 @@ main(int argc, char **argv)
 
                     int gradeMin[10];
 
-                    while (fgets(lineGrade, sizeof(lineGrade), fp)) { // Read the line
+                    while (fgets(lineGrade, sizeof(lineGrade), gradeFile)) { // Read the line
                         // Tokenize the string now and place the info in an array
                         char *token = strtok(lineGrade, "|");
-                        char info[200][256];
+                        char denomination[200][256];
                         int index = 0;
                         int skipFlag = 0;
                         while (token != NULL) {
-                            strcpy(info[index], token);
+                            strcpy(denomination[index], token);
 
-                            if (index == 0 && strcmp(subjectName, info[index]) == 0) { // Found the subject
+                            if (index == 0 && strcmp(subjectName, denomination[index]) == 0) { // Found the subject
                                 skipFlag = 1;
-                            } else if (index > 0) {
-                                printf("info: %s", info[index]);
-                                sscanf(info[index], "%d", &gradeMin[index - 1]);
-                                printf("gradeMin: %d", gradeMin[index - 1]);
+                            }
+
+                            if (index > 0) {
+                                sscanf(denomination[index], "%d", &gradeMin[index - 1]);
                             }
 
                             token = strtok(NULL, "|");
@@ -309,14 +329,12 @@ main(int argc, char **argv)
                         grade = 5.0;
                     }
 
-                    fclose(gradeFile);
-
                     struct node *current = head;
                     int index = 0;
                     while (current->next != NULL) {
                         if (strcmp(current->next->val.studentNumber, studentNumber) == 0 &&
                             strcmp(current->next->val.subjects[index][0], subjectName) == 0) {
-                            sprintf(current->next->val.subjects[index][1], "%lf", grade);
+                            sprintf(current->next->val.subjects[index][1], "%.2lf", grade);
                         }
 
                         current = current->next;
@@ -324,10 +342,13 @@ main(int argc, char **argv)
                     }
 
                     saveDataToFile(fp, head);
+
+                    printf("Press Enter key to continue...");
+                    getchar();
                 } else if (opt == 2) {
                     displayNodes(head);
 
-                    printf("Press any key to continue...");
+                    printf("Press Enter key to continue...");
                     getchar();
                 } else if (opt == 3) {
                     opt = -1;
@@ -341,7 +362,7 @@ main(int argc, char **argv)
                     char* studentNumber = GetString();
                     displayNode(head, studentNumber);
 
-                    printf("Press any key to continue...");
+                    printf("Press Enter key to continue...");
                     getchar();
                 } else if (opt == 2) {
                     opt = -1;
