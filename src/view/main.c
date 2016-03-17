@@ -29,4 +29,5 @@ main()
 
     // Print the user privilege specific menu
     DisplayView_printMenu(userPrivilege);
+    HandleInputView_inputPrivilegeSubMenu(userPrivilege);
 }

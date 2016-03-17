@@ -8,7 +8,8 @@
 
 #include "HandleInputView.h"
 
-void HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
+void
+HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
 {
     /*
      * Handles the input in the immediate submenu.
