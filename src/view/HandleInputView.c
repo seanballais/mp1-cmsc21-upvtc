@@ -34,10 +34,10 @@ void HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
                     updateOption = GetInt();
                     if (updateOption == 1) {
                         DisplayView_printAdminUpdateStudentSubMenu();
-                    ) else if (updateOption == 2) {
+                    } else if (updateOption == 2) {
                         DisplayView_printAdminUpdateSubjectSubMenu();
                     }
-                } while
+                } while (updateOption < 1 || updateOption > 2);
             } else if (userOption == 4) {
                 // Display student Information
             } else if (userOption == 5) {

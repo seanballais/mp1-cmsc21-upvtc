@@ -20,7 +20,7 @@ DisplayView_printUserPrivilegeMenu()
      printf("  2) TEACHER\n");
      printf("  3) STUDENT\n");
 
-     return
+     return;
 }
 
 void
@@ -78,7 +78,7 @@ DisplayView_printAdminSubMenu(const tasks userTask)
      */
 
     printf("GRADING BOOK MENU\n");
-    DisplayView_printHeadUserDecoration(userPrivilege);
+    DisplayView_printHeadUserDecoration(ADMIN);
 
     switch (userTask) {
         case ADD:
@@ -104,7 +104,7 @@ DisplayView_printAdminSubMenu(const tasks userTask)
 }
 
 void
-DisplayView_printAdminUpdateStudentSubMenu();
+DisplayView_printAdminUpdateStudentSubMenu()
 {
     /*
      * Prints the available options for the update student
@@ -121,7 +121,7 @@ DisplayView_printAdminUpdateStudentSubMenu();
 }
 
 void
-DisplayView_printAdminUpdateSubjectSubMenu();
+DisplayView_printAdminUpdateSubjectSubMenu()
 {
     /*
      * Prints the available options for the update subjects

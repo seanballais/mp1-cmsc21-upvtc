@@ -12,6 +12,7 @@
     #include <stdlib.h>
 
     // Project headers
+    #include "DisplayView.h"
     #include "../utils/UserDefinitions.h"
 
     // Included libraries
