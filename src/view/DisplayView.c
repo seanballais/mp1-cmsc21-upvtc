@@ -77,7 +77,7 @@ DisplayView_printAdminSubMenu(const tasks userTask)
      * to a task in an admin menu.
      */
 
-    printf("GRADING BOOK MENU\n");
+    printf("GRADING BOOK MENU");
     DisplayView_printHeadUserDecoration(ADMIN);
 
     switch (userTask) {
