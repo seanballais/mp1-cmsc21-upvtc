@@ -9,6 +9,38 @@
 #include "DisplayView.h"
 
 void
+DisplayView_printUserPrivilegeMenu()
+{
+    /*
+     * Prints a menu that displays the available user roles.
+     */
+
+     printf("GRADING BOOK USER ROLE\n");
+     printf("  1) ADMIN\n");
+     printf("  2) TEACHER\n");
+     printf("  3) STUDENT\n");
+
+     return
+}
+
+void
+DisplayView_printHeadUserDecoration(const privilege userPrivilege)
+{
+    /*
+     * Prints the user privilege on the side of the
+     * program header.
+     */
+
+    if (userPrivilege == ADMIN) {
+        printf(" - ADMIN\n");
+    } else if (userPrivilege == TEACHER) {
+        printf(" - TEACHER\n");
+    } else if (userPrivilege == STUDENT) {
+        printf(" - STUDENT\n");
+    }
+}
+
+void
 DisplayView_printMenu(const privilege userPrivilege)
 {
     /*
@@ -16,8 +48,10 @@ DisplayView_printMenu(const privilege userPrivilege)
      * to a user privilege.
      */
 
-    printf("GRADING BOOK MENU\n");
+    printf("GRADING BOOK MENU");
+    DisplayView_printHeadUserDecoration(userPrivilege);
 
+    // Display submenus depending on the user privilege
     unsigned int menuNumber = 1;
 
     if (userPrivilege == ADMIN) {
@@ -36,14 +70,16 @@ DisplayView_printMenu(const privilege userPrivilege)
 }
 
 void
-DisplayView_printAdminSubMenu(const tasks userTask)
+DisplayView_printAdminSubMenu(const privilege userPrivilege,
+                              const tasks userTask)
 {
     /*
      * Prints a menu that displays the subtasks that are available
      * to a task in an admin menu.
      */
 
-    printf("GRADING BOOK MENU - ADMIN\n");
+    printf("GRADING BOOK MENU\n");
+    DisplayView_printHeadUserDecoration(userPrivilege);
 
     switch (userTask) {
         case ADD:

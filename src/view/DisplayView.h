@@ -15,8 +15,11 @@
     // Project headers
     #include "../utils/UserDefinitions.h"
 
+    void DisplayView_printUserPrivilegeMenu();
+    void DisplayView_printHeadUserDecoration(const privilege userPrivilege);
     void DisplayView_printMenu(const privilege userPrivilege);
-    void DisplayView_printAdminSubMenu(const tasks userTask);
+    void DisplayView_printAdminSubMenu(const privilege userPrivilege,
+                                       const tasks userTask);
     void DisplayView_printAdminUpdateStudentSubMenu();
     void DisplayView_printAdminUpdateSubjectSubMenu();
 
