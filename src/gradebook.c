@@ -79,7 +79,7 @@ main(int argc, char **argv)
                         FILE *fp = fopen("subjects.txt", "a");
                         printf("Number of subjects to add: ");
                         int numSubjects = GetInt();
-                        char subjectCriteria[numSubjects][5][2][10];
+                        char subjectCriteria[numSubjects][5][2][20];
                         for (int h = 0; h < numSubjects; h++) {
                             for (int i = 0; i < 5; i++) {
                                 for (int j = 0; j < 2; j++) {
@@ -137,20 +137,20 @@ main(int argc, char **argv)
                             char subjectName[10];
                             strcpy(subjectName, GetString());
                             char range[10][4];
-                            char grades[10][4] = {
-                                "1.0",
-                                "1.25",
-                                "1.5",
-                                "1.75",
-                                "2.0",
-                                "2.25",
-                                "2.5",
-                                "2.75",
-                                "3.0",
-                                "4.0"
+                            double grades[10] = {
+                                1.0,
+                                1.25,
+                                1.5,
+                                1.75,
+                                2.0,
+                                2.25,
+                                2.5,
+                                2.75,
+                                3.0,
+                                4.0
                             };
-                            for (int ctr = 0; ctr < 8; ctr++) {
-                                printf("Minimum grade to get %s: ", grades[ctr]);
+                            for (int ctr = 0; ctr < 10; ctr++) {
+                                printf("Minimum grade to get %.2lf: ", grades[ctr]);
                                 strcpy(range[ctr], GetString());
                             }
 
@@ -167,6 +167,9 @@ main(int argc, char **argv)
                                 range[7],
                                 range[8],
                                 range[9]);
+
+                            printf("Press any key to continue...");
+                            getchar();
                         }
 
                         fclose(fp);
@@ -201,39 +204,124 @@ main(int argc, char **argv)
                     strcpy(subjectName, GetString());
 
                     // Loop through the criteria of the subject
-                    FILE *f = fopen("subjects.txt", "r");
+                    FILE *fp = fopen("subjects.txt", "r");
                     char line[897];
+                    double grade = 0.00;
+                    int startIndex = 0;
                     while (fgets(line, sizeof(line), fp)) { // Read the line
                         // Tokenize the string now and place the info in an array
                         char *token = strtok(line, "|");
                         char info[11][256];
                         int index = 0;
                         int skipFlag = 0;
-                        double grade = 0.00;
+                        while (token != NULL) {
+                            strcpy(info[index], token);
+
+                            if (index > 0 && strcmp(info[index], "None") == 0) {
+                                break;
+                            }
+
+                            if (index == 0 && strcmp(subjectName, info[index]) == 0) { // Found the subject
+                                skipFlag = 1;
+                                startIndex = 1;
+                                goto skipPoint;
+                            }
+
+                            if (startIndex % 2 != 0) { // Found the number
+                                int percentage = 0;
+                                sscanf(info[index], "%d", &percentage);
+
+                                int criteriaGrade = GetInt();
+                                grade += (double) criteriaGrade * ((double) percentage / 100);
+                            } else {
+                                printf("%s: ", info[index]);
+                                index++;
+                            }
+
+                            skipPoint:
+
+                            token = strtok(NULL, "|");
+                            index++;
+                            startIndex++;
+                        }
+
+                        if (skipFlag == 1) {
+                            break;
+                        }
+                    }
+
+                    printf("Grade: %.2lf\n", grade);
+
+                    fclose(fp);
+
+                    // Loop through criteria file again to look for the grade thingy
+                    FILE *gradeFile = fopen("graderange.txt", "r");
+                    char lineGrade[897];
+                    double gradeRange[10] = {
+                        1.0,
+                        1.25,
+                        1.5,
+                        1.75,
+                        2.0,
+                        2.25,
+                        2.5,
+                        2.75,
+                        3.0,
+                        4.0
+                    };
+
+                    int gradeMin[10];
+
+                    while (fgets(lineGrade, sizeof(lineGrade), fp)) { // Read the line
+                        // Tokenize the string now and place the info in an array
+                        char *token = strtok(lineGrade, "|");
+                        char info[200][256];
+                        int index = 0;
+                        int skipFlag = 0;
                         while (token != NULL) {
                             strcpy(info[index], token);
 
                             if (index == 0 && strcmp(subjectName, info[index]) == 0) { // Found the subject
                                 skipFlag = 1;
-                                continue;
-                            }
-
-                            if (index > 0 && strcmp(info[index], "None") != 0) {
-                                printf("%s: ", info[index]);
-                            }
-
-                            if (index > 0 && isdigit(info[index][0]) == 0) {
-                                
+                            } else if (index > 0) {
+                                printf("info: %s", info[index]);
+                                sscanf(info[index], "%d", &gradeMin[index - 1]);
+                                printf("gradeMin: %d", gradeMin[index - 1]);
                             }
 
                             token = strtok(NULL, "|");
                             index++;
                         }
 
-                        addNodeFromArray(head, info);
+                        if (skipFlag == 1) {
+                            break;
+                        }
                     }
 
-                    fclose(fp);
+                    for (int ctr = 0; ctr < 10; ctr++) {
+                        if (grade >= gradeMin[ctr]) {
+                            grade = gradeRange[ctr];
+                            break;
+                        }
+                    }
+
+                    if (grade > 5) {
+                        grade = 5.0;
+                    }
+
+                    fclose(gradeFile);
+
+                    struct node *current = head;
+                    int index = 0;
+                    while (current->next != NULL) {
+                        if (strcmp(current->next->val.studentNumber, studentNumber) == 0 &&
+                            strcmp(current->next->val.subjects[index][0], subjectName) == 0) {
+                            sprintf(current->next->val.subjects[index][1], "%lf", grade);
+                        }
+
+                        current = current->next;
+                        index++;
+                    }
 
                     saveDataToFile(fp, head);
                 } else if (opt == 2) {
