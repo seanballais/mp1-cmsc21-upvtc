@@ -33,6 +33,6 @@
 
 # Folders and files
 bin/
-data.txt
-subjects.txt
-graderange.txt
+StudentInfo.json
+SubjectCriteria.json
+SubjectRange.json
