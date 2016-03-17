@@ -8,10 +8,10 @@ addNode(struct node *head)
     while (current->next != NULL) {
         current = current->next;
 
-        current->next = malloc(sizeof(struct node));
-        getInput(&current->next->val);
     }
 
+    current->next = malloc(sizeof(struct node));
+    getInput(&current->next->val);
     current->next->next = NULL;
 }
 
@@ -32,12 +32,13 @@ addNodeFromArray(struct node *head, char str[][256])
 
     int gradePart = 0; // 0 for name, 1 for grade
     for (int subjCtr = 0; subjCtr < 25; subjCtr++) {
+        if (subjCtr % 2 == 0) {
+            gradePart = 0;
+        } else {
+            gradePart = 1;
+        }
         strcpy(current->next->val.subjects[subjCtr][gradePart], str[subjCtr + 5]);
-        gradePart = gradePart ^ 0;
     }
-
-    // Time to convert the grade string to a double we can process next time.
-    //sscanf(str[5], "%lf", &current->next->val.grade);
 
     current->next->next = NULL;
 }
@@ -79,6 +80,7 @@ displayNodes(struct node *head)
 {
     struct node *current = head;
     while (current != NULL) {
+        printf("Data: %s\n", current->val.subjects[1][0]);
         if (current != NULL && strcmp(current->val.studentNumber, "") != 0) {
             printEntry(current->val);
         }

@@ -7,6 +7,12 @@ printEntry(profile personInfo)
     printf("Age: %s\n", personInfo.age);
     printf("Student Number: %s\n", personInfo.studentNumber);
     printf("Course and Year: %s %s\n", personInfo.course, personInfo.year);
+    printf("Subjects\n");
+    for (int index = 0; index < 10; index++) {
+        if (strcmp(personInfo.subjects[index][0], "") != 0) {
+            printf("   %s - %s\n", personInfo.subjects[index][0], personInfo.subjects[index][1]);
+        }
+    }
     printf("---\n");
 }
 

@@ -46,7 +46,7 @@ saveDataToFile(FILE *fp, struct node *head)
         struct node *current = head;
         while (current != NULL) {
             if (current != NULL && strcmp(current->val.studentNumber, "") != 0) {
-                fprintf(fp, "%s|%s|%s|%s|%s%s|%s|%s|%s|%s%s|%s|%s|%s|%s%s|%s|%s|%s|%s%s|%s|%s|%s|%s\n",
+                fprintf(fp, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%s%s|%s|%s|%s|%s%s|%s|%s|%s|%s%s|%s|%s|%s|%s\n",
                         current->val.name,
                         current->val.age,
                         current->val.course,

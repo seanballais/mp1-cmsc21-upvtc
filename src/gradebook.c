@@ -70,6 +70,7 @@ main(int argc, char **argv)
                     printf("Input: ");
 
                     int addOpt = GetInt();
+                    system("clear");
                     if (addOpt == 1) {
                         addNode(head);
                         saveDataToFile(fp, head);
@@ -190,7 +191,7 @@ main(int argc, char **argv)
 
                                 for (int i = 0; i < numSubject; i++) {
                                     printf("Subject name: ");
-                                    strcpy(current->next->val.subjects[i][0], strcat(GetString(), "|"));
+                                    strcpy(current->next->val.subjects[i][0], GetString());
                                 }
                             }
 
@@ -247,15 +248,17 @@ main(int argc, char **argv)
                                 goto skipPoint;
                             }
 
-                            if (startIndex % 2 != 0) { // Found the number
-                                int percentage = 0;
-                                sscanf(info[index], "%d", &percentage);
+                            if (skipFlag == 1) {
+                                if (startIndex % 2 != 0) { // Found the number
+                                    int percentage = 0;
+                                    sscanf(info[index], "%d", &percentage);
 
-                                int criteriaGrade = GetInt();
-                                grade += (double) criteriaGrade * ((double) percentage / 100);
-                            } else {
-                                printf("%s: ", info[index]);
-                                index++;
+                                    int criteriaGrade = GetInt();
+                                    grade += (double) criteriaGrade * ((double) percentage / 100);
+                                } else {
+                                    printf("%s: ", info[index]);
+                                    index++;
+                                }
                             }
 
                             skipPoint:
@@ -335,6 +338,7 @@ main(int argc, char **argv)
                         if (strcmp(current->next->val.studentNumber, studentNumber) == 0 &&
                             strcmp(current->next->val.subjects[index][0], subjectName) == 0) {
                             sprintf(current->next->val.subjects[index][1], "%.2lf", grade);
+                            printf("Test\n");
                         }
 
                         current = current->next;
