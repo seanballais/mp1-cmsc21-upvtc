@@ -29,8 +29,14 @@ addNodeFromArray(struct node *head, char str[][256])
     strcpy(current->next->val.year, str[3]);
     strcpy(current->next->val.studentNumber, str[4]);
 
+    int gradePart = 0; // 0 for name, 1 for grade
+    for (int subjCtr = 0; subjCtr < 25; subjCtr++) {
+        strcpy(current->next->val.subjects[subjCtr][gradePart], str[subjCtr + 5]);
+        gradePart = gradePart ^ 0;
+    }
+
     // Time to convert the grade string to a double we can process next time.
-    sscanf(str[5], "%lf", &current->next->val.grade);
+    //sscanf(str[5], "%lf", &current->next->val.grade);
 
     current->next->next = NULL;
 }
@@ -57,28 +63,10 @@ updateNode(struct node *head, char studentNumber[], int privilege)
     struct node *current = head;
     while (current->next != NULL) {
         if (strcmp(current->next->val.studentNumber, studentNumber) == 0) {
-            if (privilege == 1) { // ADMIN
-                printf("Update student information.\n");
-                getInput(&current->next->val);
-                break;
-            } else if (privilege == 2) { // TEACHER
-                printf("Update grade or student information? 1 for grade, 2 for information.\n");
-                printf("Input: ");
-                int opt = GetInt();
-                if (opt == 2) {
-                    getInput(&current->next->val);
-                    break;
-                } else if (opt == 1) {
-                    printf("Enter new student grade: ");
-                    current->next->val.grade = GetDouble();
-                    break;
-                } else {
-                    printf("Invalid input.\n");
-                    return;
-                }
-
-                printf("Updated...\n");
-            }
+            printf("Update student information.\n");
+            getInput(&current->next->val);
+            printf("Updated...\n");
+            break;
         }
 
         current = current->next;

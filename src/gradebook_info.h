@@ -9,7 +9,7 @@
         char course[10];
         char year[5];
         char studentNumber[16];
-        double grade;
+        char subjects[10][2][10];
     } profile;
 
 #endif

@@ -15,7 +15,7 @@ readDataFromFile(FILE *fp, struct node *head)
         while (fgets(line, sizeof(line), fp)) { // Read the line
             // Tokenize the string now and place the info in an array
             char *token = strtok(line, "|");
-            char info[6][256];
+            char info[25][256];
             int index = 0;
             while (token != NULL) {
                 strcpy(info[index], token);
@@ -29,7 +29,6 @@ readDataFromFile(FILE *fp, struct node *head)
 
         fclose(fp);
         fp = NULL;
-
     }
 }
 
@@ -47,13 +46,32 @@ saveDataToFile(FILE *fp, struct node *head)
         struct node *current = head;
         while (current != NULL) {
             if (current != NULL && strcmp(current->val.studentNumber, "") != 0) {
-                fprintf(fp, "%s|%s|%s|%s|%s|%lf\n",
+                fprintf(fp, "%s|%s|%s|%s|%s%s|%s|%s|%s|%s%s|%s|%s|%s|%s%s|%s|%s|%s|%s%s|%s|%s|%s|%s\n",
                         current->val.name,
                         current->val.age,
                         current->val.course,
                         current->val.year,
                         current->val.studentNumber,
-                        current->val.grade
+                        current->val.subjects[0][0],
+                        current->val.subjects[0][1],
+                        current->val.subjects[1][0],
+                        current->val.subjects[1][1],
+                        current->val.subjects[2][0],
+                        current->val.subjects[2][1],
+                        current->val.subjects[3][0],
+                        current->val.subjects[3][1],
+                        current->val.subjects[4][0],
+                        current->val.subjects[4][1],
+                        current->val.subjects[5][0],
+                        current->val.subjects[5][1],
+                        current->val.subjects[6][0],
+                        current->val.subjects[6][1],
+                        current->val.subjects[7][0],
+                        current->val.subjects[7][1],
+                        current->val.subjects[8][0],
+                        current->val.subjects[8][1],
+                        current->val.subjects[9][0],
+                        current->val.subjects[9][1]
                         );
             }
 

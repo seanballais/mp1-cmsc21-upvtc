@@ -7,7 +7,6 @@ printEntry(profile personInfo)
     printf("Age: %s\n", personInfo.age);
     printf("Student Number: %s\n", personInfo.studentNumber);
     printf("Course and Year: %s %s\n", personInfo.course, personInfo.year);
-    printf("Grade: %.3lf\n", personInfo.grade);
     printf("---\n");
 }
 
@@ -38,7 +37,7 @@ printMenu(roles role)
     printf("GRADING BOOK Menu\n");
 
     int optionNum = 0;
-    if (role != STUDENT) {
+    if (role == ADMIN) {
         optionNum++;
         printf("    %d) Add\n", optionNum);
     }
