@@ -16,7 +16,7 @@
     #include "../utils/UserDefinitions.h"
 
     // Included libraries
-    #include "../../lib/cs50/cs50.h"
+    #include "../../lib/include/cs50.h"
 
     void HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege);
 

@@ -1,5 +1,6 @@
 all:
 	gcc -c -Wall -Werror -fpic lib/cs50/cs50.c -o lib/cs50.a # Compile the CS50 library first
+	cp lib/cs50/cs50.h lib/include
 	chmod +x compile_jansson.sh
 	./compile_jansson.sh
 	cd ../../
