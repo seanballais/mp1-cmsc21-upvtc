@@ -22,11 +22,11 @@ HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
     switch(userPrivilege) {
         case ADMIN:
             if (userOption == 1) { // Add option
-                DisplayView_printAdminSubMenu(userOption);
+                DisplayView_printAdminSubMenu(userOption - 1);
             } else if (userOption == 2) { // Delete option
-                DisplayView_printAdminSubMenu(userOption);
+                DisplayView_printAdminSubMenu(userOption - 1);
             } else if (userOption == 3) { // Update option
-                DisplayView_printAdminSubMenu(userOption);
+                DisplayView_printAdminSubMenu(userOption - 1);
 
                 // Handle the [sub] submenu
                 printf("Input: ");
