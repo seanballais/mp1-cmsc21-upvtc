@@ -12,7 +12,6 @@
 
     // Project headers
     #include "../utils/DataTypeDefinitions.h"
-    #include "../utils/MaxCharLimit.h"
 
     // Included libraries
     #include "../../include/jansson.h"
