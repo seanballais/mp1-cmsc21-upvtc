@@ -6,4 +6,6 @@ To compile the source, just type this in the Terminal.
 
     $ cd /path/to/source    
     $ make
-    $ ./bin/mp1 # To run the binary
+    $ ./bin/gradingbook # To run the binary
+
+**NOTE:** Required SQLite3.

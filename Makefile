@@ -3,6 +3,7 @@ all:
 	mkdir -p lib/include/
 	cp lib/cs50/cs50.h lib/include/cs50.h
 	cd ../../
+	sudo apt-get install sqlite3 -y
 	make app
 
 app:
