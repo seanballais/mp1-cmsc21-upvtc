@@ -8,4 +8,5 @@ all:
 app:
 	mkdir -p bin # Now compile the application
 	clang src/view/main.c src/view/HandleInputView.c src/view/DisplayView.c src/model/StudentModel.c src/model/FileHandler.c -o bin/gradingbook lib/cs50.a
+	rm -f *.txt
 	touch StudentInfo.txt SubjectInfo.txt

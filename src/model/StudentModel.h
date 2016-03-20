@@ -10,7 +10,6 @@
 
     #include <stdio.h>
     #include <string.h>
-    #include <stdbool.h>
 
     // Project headers
     #include "../utils/DataTypeDefinitions.h"

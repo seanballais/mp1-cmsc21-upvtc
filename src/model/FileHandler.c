@@ -66,14 +66,13 @@ FileUtil_modifyStudentInfoProperty(const int index,
                 // Continue looping until the token points to the subjects
                 if (tokenNumber == index) {
                     if (mode == 'a') {
-                        strcat(token, " ");
+                        strcat(token, ", ");
                         strcat(token, newVal);
-                        strcat(token, ",");
                     } else if (mode == 'r') {
                         strcpy(token, newVal);
                     }
-                } else if (tokenNumber == 1 && mode == 'a') {
-                    strcpy(lineInfo, token);
+                } else if (tokenNumber == 0 && mode == 'a') {
+                    strcat(lineInfo, token);
 
                     tokenNumber++;
                     token = strtok(NULL, "|");
@@ -105,7 +104,7 @@ FileUtil_modifyStudentInfoProperty(const int index,
     fclose(fp);
 }
 
-void
+string
 FileUtil_getStudentInfoProperty(const int index,
                                 const string studentNumber)
 {
@@ -113,43 +112,45 @@ FileUtil_getStudentInfoProperty(const int index,
      * Get a student info property.
      */
 
-     FILE *fp = FileUtil_openFile("StudentInfo.txt", "r");
+    FILE *fp = FileUtil_openFile("StudentInfo.txt", "r");
 
-     string fileLines = NULL;
-     string line = NULL;
-     bool numberFound = false;
-     while (fgets(line, 256, fp) != NULL) {
-         // Tokenize the string
-         string token = strtok(line, "|");
-         int tokenNumber = 0;
-         while (token != NULL) {
-             // Continue looping until the token points to the student number
-             if (tokenNumber == 3) { // Located the student number
-                 if (strcmp(studentNumber, token) == 0) {
-                     numberFound = true;
-                     break;
-                 }
-             } else {
-                 tokenNumber++;
-                 token = strtok(NULL, "|");
-             }
-         }
+    string fileLines = NULL;
+    string line = NULL;
+    bool numberFound = false;
+    while (fgets(line, 256, fp) != NULL) {
+        // Tokenize the string
+        string token = strtok(line, "|");
+        int tokenNumber = 0;
+        while (token != NULL) {
+            // Continue looping until the token points to the student number
+            if (tokenNumber == 3) { // Located the student number
+                if (strcmp(studentNumber, token) == 0) {
+                    numberFound = true;
+                    break;
+                }
+            } else {
+                tokenNumber++;
+                token = strtok(NULL, "|");
+            }
+        }
 
-         if (numberFound) {
-             // Let's tokenize again
-             string token = strtok(line, "|");
-             int tokenNumber = 0;
-             while (token != NULL) {
-                 // Continue looping until the token points to the subjects
-                 if (tokenNumber == index) {
-                     return token;
-                 }
+        if (numberFound) {
+            // Let's tokenize again
+            string token = strtok(line, "|");
+            int tokenNumber = 0;
+            while (token != NULL) {
+                // Continue looping until the token points to the subjects
+                if (tokenNumber == index) {
+                    fclose(fp);
+                    return token;
+                }
 
-                 tokenNumber++;
-                 token = strtok(NULL, "|");
-             }
-         }
-     }
+                tokenNumber++;
+                token = strtok(NULL, "|");
+            }
+        }
+    }
 
-     fclose(fp);
+    fclose(fp);
+    return "None";
 }
