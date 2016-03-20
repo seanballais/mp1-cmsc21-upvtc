@@ -26,5 +26,6 @@
     int HandleInputView_inputAdminAdd();
     int HandleInputView_inputAdminDelete();
     int HandleInputView_inputAdminUpdateStudent();
+    int HandleInputView_inputAdminUpdateSubject();
 
 #endif

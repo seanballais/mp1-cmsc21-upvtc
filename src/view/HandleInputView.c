@@ -36,12 +36,17 @@ HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
                     if (updateOption == 1) {
                         DisplayView_printAdminUpdateStudentSubMenu();
                         if (HandleInputView_inputAdminUpdateStudent() == 4) {
-                            HandleInputView_inputPrivilegeSubMenu(userPrivilege);
+                            DisplayView_printAdminSubMenu(userOption - 1);
                         }
                     } else if (updateOption == 2) {
                         DisplayView_printAdminUpdateSubjectSubMenu();
+                        if (HandleInputView_inputAdminUpdateSubject() == 4) {
+                            DisplayView_printAdminSubMenu(userOption - 1);
+                        }
+                    } else if (updateOption == 3) {
+                        HandleInputView_inputPrivilegeSubMenu(userPrivilege);
                     }
-                } while (updateOption < 1 || updateOption > 2);
+                } while (updateOption < 1 || updateOption > 3);
             } else if (userOption == 4) {
                 // Display student Information
             } else if (userOption == 5) {
@@ -282,10 +287,10 @@ HandleInputView_inputAdminDelete()
         printf("Input: ");
         opt = GetInt();
 
-        if (opt < 1 || opt > 3) {
-            printf("Input must not be greater than 3 or less than 1!\n");
+        if (opt < 1 || opt > 4) {
+            printf("Input must not be greater than 4 or less than 1!\n");
         }
-    } while (opt < 1 || opt > 3);
+    } while (opt < 1 || opt > 4);
 
     system("clear");
 
@@ -532,6 +537,136 @@ HandleInputView_inputAdminUpdateStudent()
         }
     } else if (opt == 4) {
         return 4;
+    }
+
+    return 0;
+}
+
+int
+HandleInputView_inputAdminUpdateSubject()
+{
+    /*
+     * Handle the update for the subjects.
+     */
+
+    int opt = 0;
+    do {
+        printf("Input: ");
+        opt = GetInt();
+
+        if (opt < 1 || opt > 3) {
+            printf("Input must not be greater than 3 or less than 1!\n");
+        }
+    } while (opt < 1 || opt > 3);
+
+    if (opt == 1) { // Update subject criteria
+        printf("Update Subject Criteria\n");
+
+        bool updateSubjectCriteria = true;
+        while (updateSubjectCriteria) {
+            char subjectName[256];
+            strcpy(subjectName, "");
+
+            printf("Subject name: ");
+            strcpy(subjectName, GetString());
+
+            char criteria[256];
+            strcpy(criteria, "");
+
+            printf("Criteria\n");
+            int criteriaRate = 100;
+            char criteriaName[256];
+            strcpy(criteriaName, "");
+            int criteriaInput = 0;
+            while (criteriaRate > 0) {
+                printf("Criteria name: ");
+                strcpy(criteriaName, GetString());
+
+                do {
+                    printf("Percentage left: %d%c\n", criteriaRate, 37);
+                    printf("Criteria percentage: ");
+                    criteriaInput = GetInt();
+
+                    if (criteriaInput > criteriaRate) {
+                        printf(
+                            "Rate must be less than %d%c.\n",
+                            criteriaRate,
+                            37
+                        );
+                    }
+                } while (criteriaInput > criteriaRate);
+
+                if (criteriaRate < 100) {
+                    strcat(criteria, ", ");
+                }
+
+                criteriaRate = criteriaRate - criteriaInput;
+
+                strcat(criteria, criteriaName);
+                strcat(criteria, ", ");
+                char tmpRate[256];
+                strcpy(tmpRate, "");
+                sprintf(tmpRate, "%d", criteriaInput);
+                strcat(criteria, tmpRate);
+            }
+
+            Controller_updateSubjectCriteria(subjectName, criteria);
+
+            printf("Update another subject? (1 for yes, 2 for no) ");
+            opt = GetInt();
+
+            if (opt != 1) {
+                updateSubjectCriteria = false;
+            }
+        }
+    } else if (opt == 2) { // Update subject rating
+        printf("Update Subject Range\n");
+
+        bool updateSubjectRange = true;
+        while (updateSubjectRange) {
+            printf("Subject name: ");
+
+            char subjectName[256];
+            strcpy(subjectName, GetString());
+
+            char subjectRange[256];
+            strcpy(subjectRange, "");
+            printf("New subject Range for %s\n", subjectName);
+            double gradeRange[10] = {
+                1.00,
+                1.25,
+                1.50,
+                1.75,
+                2.00,
+                2.25,
+                2.50,
+                2.75,
+                3.00,
+                4.00
+            };
+            for (int ctr = 0; ctr < 10; ctr++) {
+                printf("Minimum grade to get %.2f: ", gradeRange[ctr]);
+                char minGrade[256];
+                strcpy(minGrade, GetString());
+
+                if (ctr > 0) {
+                    strcat(subjectRange, ", ");
+                }
+
+                strcat(subjectRange, minGrade);
+            }
+
+            Controller_updateSubjectRange(subjectName, subjectRange);
+
+            printf("Update another subject's range? (1 for yes, 2 for no) ");
+            opt = GetInt();
+
+            if (opt != 1) {
+                updateSubjectRange = false;
+            }
+        }
+    } else if (opt == 3) {
+        return 3;
     }
 
     return 0;
