@@ -252,6 +252,7 @@ StudentModel_removeStudent(string studentNumber)
     string line = NULL;
     bool numberFound = false;
     while (fgets(line, 256, fp) != NULL) {
+        numberFound = false;
         // Tokenize the string
         string token = strtok(line, "|");
         int tokenNumber = 0;
