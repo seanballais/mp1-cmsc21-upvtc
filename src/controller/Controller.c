@@ -195,3 +195,23 @@ Controller_displayAllStudentInfo()
 
     return;
 }
+
+string
+Controller_getSubjectCriteria(string subjectName)
+{
+    /*
+     * Get the subject grade criteria.
+     */
+
+    return SubjectModel_getSubjectCriteria(subjectName);
+}
+
+string
+Controller_getSubjectRange(string subjectName)
+{
+    /*
+     * Get the subject range.
+     */
+
+    return SubjectModel_getSubjectRange(subjectName);
+}

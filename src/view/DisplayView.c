@@ -86,18 +86,39 @@ DisplayView_printAdminSubMenu(const tasks userTask)
             printf("Add\n");
             printf("  1) Add Students\n");
             printf("  2) Add Subjects\n");
-            HandleInputView_inputAdminAdd();
+            printf("  3) Exit\n");
+
+            if (HandleInputView_inputAdminAdd() == 3) {
+                DisplayView_printMenu(ADMIN);
+                HandleInputView_inputPrivilegeSubMenu(ADMIN);
+            }
+
+            system("clear");
+
+            DisplayView_printAdminSubMenu(userTask);
 
             break;
         case DELETE:
             printf("Delete\n");
             printf("  1) Delete Students\n");
             printf("  2) Delete Subjects\n");
+            printf("  3) Exit\n");
+
+            if (HandleInputView_inputAdminAdd() == 3) {
+                DisplayView_printMenu(ADMIN);
+                HandleInputView_inputPrivilegeSubMenu(ADMIN);
+            }
+
+            system("clear");
+
+            DisplayView_printAdminSubMenu(userTask);
+
             break;
         case UPDATE:
             printf("Update\n");
             printf("  1) Update Students\n");
             printf("  2) Update Subjects\n");
+            printf("  3) Exit\n");
             break;
         default:
             break;
@@ -119,6 +140,7 @@ DisplayView_printAdminUpdateStudentSubMenu()
     printf("  1) Update Student Information\n");
     printf("  2) Update Student Subjects\n");
     printf("  3) Update Student Grades\n");
+    printf("  4) Exit\n");
 
     return;
 }
@@ -135,6 +157,7 @@ DisplayView_printAdminUpdateSubjectSubMenu()
     printf("Update Subject\n");
     printf("  1) Update Subject Criteria\n");
     printf("  2) Update Subject Grade Range\n");
+    printf("  3) Exit\n");
 
     return;
 }

@@ -42,7 +42,7 @@ HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
             } else if (userOption == 4) {
                 // Display student Information
             } else if (userOption == 5) {
-                // Exit the program
+                exit(0);
             } else {
                 printf("Unknown option %d.\n", userOption);
                 goto inputPoint;
@@ -55,7 +55,7 @@ HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
             } else if (userOption == 2) {
                 // Display the Display Submenu
             } else if (userOption == 3) {
-                // Exit the program
+                exit(0);
             } else {
                 printf("Unknown option %d.\n", userOption);
                 goto inputPoint;
@@ -66,7 +66,7 @@ HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
             if (userOption == 1) {
                 // Display the Display submenu
             } else if (userOption == 2) {
-                // Exit the program
+                exit(0);
             } else {
                 printf("Unknown option %d.\n", userOption);
                 goto inputPoint;
@@ -80,7 +80,7 @@ HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
     return;
 }
 
-void
+int
 HandleInputView_inputAdminAdd()
 {
     /*
@@ -92,10 +92,10 @@ HandleInputView_inputAdminAdd()
         printf("Input: ");
         opt = GetInt();
 
-        if (opt < 1 || opt > 2) {
-            printf("Input must not be greater than 2 or less than 1!\n");
+        if (opt < 1 || opt > 3) {
+            printf("Input must not be greater than 3 or less than 1!\n");
         }
-    } while (opt < 1 || opt > 2);
+    } while (opt < 1 || opt > 3);
 
     system("clear");
     if (opt == 1) { // Add students
@@ -260,5 +260,69 @@ HandleInputView_inputAdminAdd()
 
             system("clear");
         }
+    } else if (opt == 3) {
+        return 3;
     }
+
+    return 0;
+}
+
+int
+HandleInputView_inputAdminDelete()
+{
+    /*
+     * Handle the deleting of the students or subjects.
+     */
+
+    int opt = 0;
+    do {
+        printf("Input: ");
+        opt = GetInt();
+
+        if (opt < 1 || opt > 3) {
+            printf("Input must not be greater than 3 or less than 1!\n");
+        }
+    } while (opt < 1 || opt > 3);
+
+    system("clear");
+
+    if (opt == 1) {
+        bool deleteStudent = true;
+        while (deleteStudent) {
+            printf("Deleting student\n");
+            printf("Student Number: ");
+            char studentNumber[256];
+            strcpy(studentNumber, GetString());
+
+            Controller_removeStudent(studentNumber);
+
+            printf("Delete another student? (1 for yes, 2 for no) ");
+            int deleteOpt = GetInt();
+
+            if (deleteOpt != 1) {
+                deleteStudent = false;
+            }
+        }
+    } else if (opt == 2) {
+        bool deleteSubject = true;
+        while (deleteSubject) {
+            printf("Deleting subject\n");
+            printf("Subject Name: ");
+            char subjectName[256];
+            strcpy(subjectName, GetString());
+
+            Controller_removeSubject(subjectName);
+
+            printf("Delete another subject? (1 for yes, 2 for no) ");
+            int deleteOpt = GetInt();
+
+            if (deleteOpt != 1) {
+                deleteSubject = false;
+            }
+        }
+    } else if (opt == 3) {
+        return 3;
+    }
+
+    return 0;
 }
