@@ -10,10 +10,11 @@
 
     #include <stdio.h>
     #include <string.h>
+    #include <stdbool.h>
 
     // Project headers
     #include "../utils/DataTypeDefinitions.h"
-    #include "../utils/FileUtil.h"
+    #include "FileHandler.h"
 
     void StudentModel_addStudent(string name,
                                  string course,
