@@ -24,5 +24,6 @@
     void SubjectModel_removeSubject(string subjectName);
     string SubjectModel_getSubjectCriteria(string subjectName);
     string SubjectModel_getSubjectRange(string subjectName);
+    void SubjectModel_listSubjects();
 
 #endif

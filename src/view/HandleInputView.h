@@ -19,5 +19,6 @@
     #include "../../lib/include/cs50.h"
 
     void HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege);
+    void HandleInputView_inputAdminAddStudents();
 
 #endif

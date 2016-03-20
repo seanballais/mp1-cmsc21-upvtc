@@ -79,3 +79,9 @@ HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
 
     return;
 }
+
+void
+HandleInputView_inputAdminAddStudents()
+{
+    
+}

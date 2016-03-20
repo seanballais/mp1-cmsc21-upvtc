@@ -37,5 +37,7 @@
     void StudentModel_removeStudentSubject(string studentNumber,
                                            string subjectName);
     void StudentModel_removeStudent(string studentNumber);
+    void StudentModel_displayStudentInfo(string studentNumber);
+    void StudentModel_displayAllStudentInfo();
 
 #endif

@@ -130,9 +130,8 @@ DisplayView_printAdminUpdateSubjectSubMenu()
 
     printf("GRADING BOOK MENU - ADMIN\n");
     printf("Update Subject\n");
-    printf("  1) Update Subject Name\n");
-    printf("  2) Update Subject Criteria\n");
-    printf("  3) Update Subject Grade Range\n");
+    printf("  1) Update Subject Criteria\n");
+    printf("  2) Update Subject Grade Range\n");
 
     return;
 }

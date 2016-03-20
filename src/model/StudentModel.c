@@ -283,3 +283,116 @@ StudentModel_removeStudent(string studentNumber)
 
     return;
 }
+
+void
+StudentModel_displayStudentInfo(string studentNumber)
+{
+    /*
+     * Display the student info of a student.
+     */
+
+    FILE *fp = FileUtil_openFile("StudentInfo.txt", "r");
+
+    string subjects = NULL;
+    string grades = NULL;
+    string line = NULL;
+    bool numberFound = false;
+    while (fgets(line, 256, fp) != NULL) {
+        // Tokenize the string
+        string token = strtok(line, "|");
+        int tokenNumber = 0;
+        while (token != NULL) {
+            // Continue looping until the token points to the student number
+            if (tokenNumber == 3) { // Located the student number
+                if (strcmp(studentNumber, token) == 0) {
+                    printf("-----\n");
+                    numberFound = true;
+                }
+            }
+
+            if (numberFound && tokenNumber == 4) {
+                // Get the student subjects
+                strcpy(subjects, token);
+            } else if (numberFound && tokenNumber == 5) {
+                // Get the student grades
+                strcpy(grades, token);
+            }
+
+            tokenNumber++;
+            token = strtok(NULL, "|");
+        }
+
+        if (numberFound) {
+            break;
+        }
+    }
+
+    if (numberFound) {
+        printf("-----\n");
+
+        // Loop to get the basic information
+        string infoToken = strtok(line, "|");
+        int tokenIndex = 0;
+        while (infoToken != NULL && tokenIndex < 4) {
+            if (tokenIndex == 0) {
+                printf("Name: %s\n", infoToken);
+            } else if (tokenIndex == 1) {
+                printf("Course and Year: %s ", infoToken);
+            } else if (tokenIndex == 2) {
+                printf("%s\n", infoToken);
+            } else if (tokenIndex == 3) {
+                printf("Student Number: %s\n", infoToken);
+            }
+
+            tokenIndex++;
+            infoToken = strtok(NULL, "|");
+        }
+
+        // Loop through the grades and subjects
+        printf("Subjects:\n");
+
+        string subjectToken = strtok(subjects, ",");
+        string gradeToken = strtok(grades, ",");
+        while (subjectToken != NULL && gradeToken != NULL) {
+            printf("  %s - %s\n", subjectToken, gradeToken);
+
+            subjectToken = strtok(NULL, ",");
+            gradeToken = strtok(NULL, ",");
+        }
+
+        printf("-----\n");
+    }
+
+    fclose(fp);
+}
+
+void
+StudentModel_displayAllStudentInfo()
+{
+    /*
+     * Remove a student.
+     */
+
+    FILE *fp = FileUtil_openFile("StudentInfo.txt", "r");
+
+    string fileLines = NULL;
+    string line = NULL;
+    while (fgets(line, 256, fp) != NULL) {
+        // Tokenize the string
+        string token = strtok(line, "|");
+        int tokenNumber = 0;
+        while (token != NULL) {
+            // Continue looping until the token points to the student number
+            if (tokenNumber == 3) { // Located the student number
+                StudentModel_displayStudentInfo(token);
+            }
+
+            tokenNumber++;
+            token = strtok(NULL, "|");
+        }
+    }
+
+    fclose(fp);
+
+    return;
+}

@@ -225,3 +225,36 @@ SubjectModel_getSubjectRange(string subjectName)
     fclose(fp);
     return "None";
 }
+
+void
+SubjectModel_listSubjects()
+{
+    /*
+     * Get a subject range.
+     */
+
+    printf("GRADINGBOOK AVAILABLE SUBJECTS\n");
+
+    FILE *fp = FileUtil_openFile("SubjectInfo.txt", "r");
+
+    string fileLines = NULL;
+    string line = NULL;
+    bool subjectFound = false;
+    while (fgets(line, 256, fp) != NULL) {
+        // Tokenize the string
+        string token = strtok(line, "|");
+        int tokenNumber = 0;
+        while (token != NULL) {
+            // Continue looping until the token points to the student number
+            if (tokenNumber == 0) { // Located the student number
+                printf(" - %s\n", token);
+                break;
+            }
+
+            tokenNumber++;
+            token = strtok(NULL, "|");
+        }
+    }
+
+    fclose(fp);
+}
