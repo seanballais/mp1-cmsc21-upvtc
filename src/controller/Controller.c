@@ -1,36 +1,38 @@
 /*
- * Controller.h
+ * Controller.c
  *
  * Links the model to the view and vice versa.
  *
  */
 
+#include "Controller.h"
+
 void
-Controller_addStudent(string name.
-                      string course,
+Controller_addStudent(char name[],
+                      char course[],
                       int year,
-                      string studentNumber,
-                      string subjects,
-                      string grades)
+                      char studentNumber[],
+                      char subjects[],
+                      char grades[])
 {
     /*
      * Add a student.
      */
 
-    StudentModel_addStudent(string name,
-                            string course,
-                            int year,
-                            string studentNumber,
-                            string subjects,
-                            string grades);
+    StudentModel_addStudent(name,
+                            course,
+                            year,
+                            studentNumber,
+                            subjects,
+                            grades);
 
     return;
 }
 
 void
-Controller_addSubject(string subjectName,
-                      string subjectCriteria,
-                      string subjectRange)
+Controller_addSubject(char subjectName[],
+                      char subjectCriteria[],
+                      char subjectRange[])
 {
     /*
      * Add a subject.
@@ -40,7 +42,7 @@ Controller_addSubject(string subjectName,
 }
 
 void
-Controller_removeStudent(string studentNumber)
+Controller_removeStudent(char studentNumber[])
 {
     /*
      * Remove a student.
@@ -52,7 +54,7 @@ Controller_removeStudent(string studentNumber)
 }
 
 void
-Controller_removeSubject(string subjectName)
+Controller_removeSubject(char subjectName[])
 {
     /*
      * Remove a subject.
@@ -64,11 +66,11 @@ Controller_removeSubject(string subjectName)
 }
 
 void
-Controller_updateStudentInfo(string name.
-                             string course,
+Controller_updateStudentInfo(char name[],
+                             char course[],
                              int year,
-                             string studentNumber,
-                             string newStudentNumber)
+                             char studentNumber[],
+                             char newStudentNumber[])
 {
     /*
      * Update student information.
@@ -83,8 +85,8 @@ Controller_updateStudentInfo(string name.
 }
 
 void
-Controller_addStudentSubject(string studentNumber,
-                             string subject)
+Controller_addStudentSubject(char studentNumber[],
+                             char subject[])
 {
     /*
      * Add a subject to a student.
@@ -96,8 +98,8 @@ Controller_addStudentSubject(string studentNumber,
 }
 
 void
-Controller_removeStudentSubject(string studentNumber,
-                                string subjectName)
+Controller_removeStudentSubject(char studentNumber[],
+                                char subjectName[])
 {
     /*
      * Remove a subject from a student.
@@ -109,8 +111,8 @@ Controller_removeStudentSubject(string studentNumber,
 }
 
 void
-Controller_updateStudentSubjectGrade(string studentNumber,
-                                     string subjectName,
+Controller_updateStudentSubjectGrade(char studentNumber[],
+                                     char subjectName[],
                                      double subjectGrade)
 {
     /*
@@ -125,14 +127,15 @@ Controller_updateStudentSubjectGrade(string studentNumber,
 }
 
 void
-Controller_updateSubjectCriteria(string subjectName,
-                                 string subjectCriteria)
+Controller_updateSubjectCriteria(char subjectName[],
+                                 char subjectCriteria[])
 {
     /*
      * Update a subject's criteria.
      */
 
-    string subjectRange = SubjectModel_getSubjectRange(subjectName);
+    char subjectRange[256];
+    strcpy(subjectRange, SubjectModel_getSubjectRange(subjectName));
 
     SubjectModel_modifySubject(subjectName,
                                subjectCriteria,
@@ -142,14 +145,15 @@ Controller_updateSubjectCriteria(string subjectName,
 }
 
 void
-Controller_updateSubjectRange(string subjectName,
-                              string subjectRange)
+Controller_updateSubjectRange(char subjectName[],
+                              char subjectRange[])
 {
     /*
      * Update a subject's criteria.
      */
 
-    string subjectRange = SubjectModel_getSubjectRange(subjectName);
+    char subjectCriteria[256];
+    strcpy(subjectCriteria, SubjectModel_getSubjectCriteria(subjectName));
 
     SubjectModel_modifySubject(subjectName,
                                subjectCriteria,
@@ -171,7 +175,7 @@ Controller_listSubjects()
 }
 
 void
-Controller_displayStudentInfo(string studentNumber)
+Controller_displayStudentInfo(char studentNumber[])
 {
     /*
      * Display the info of a student.

@@ -87,7 +87,8 @@ StudentModel_modifyStudentYear(string studentNumber,
     /*
      * Modify the student year.
      */
-    string strYear = NULL;
+    char strYear[256];
+    strcpy(strYear, "");
     sprintf(strYear, "%d", year);
 
     FileUtil_modifyStudentInfoProperty(2, studentNumber, strYear, 'r');
@@ -118,7 +119,8 @@ StudentModel_modifyStudentSubjectGrade(string studentNumber,
      */
 
     // Get the subject index
-    string subjects = FileUtil_getStudentInfoProperty(4, studentNumber);
+    char subjects[256];
+    strcpy(subjects, FileUtil_getStudentInfoProperty(4, studentNumber));
 
     int subjectIndex = 0;
     string token = strtok(subjects, ",");
@@ -136,10 +138,12 @@ StudentModel_modifyStudentSubjectGrade(string studentNumber,
     }
 
     // Now modify the grades
-    string grades = FileUtil_getStudentInfoProperty(5, studentNumber);
+    char grades[256];
+    strcpy(grades, FileUtil_getStudentInfoProperty(5, studentNumber));
 
     int gradeIndex = 0;
-    string gradeList = NULL;
+    char gradeList[256];
+    strcpy(gradeList, "");
     string gradeToken = strtok(grades, ",");
     while (gradeToken != NULL) {
         if (token[0] == ' ') { // Remove the first character
@@ -147,7 +151,8 @@ StudentModel_modifyStudentSubjectGrade(string studentNumber,
         }
 
         if (gradeIndex == subjectIndex) {
-            string newGrade = NULL;
+            char newGrade[256];
+            strcpy(newGrade, "");
             sprintf(newGrade, "%f", subjectGrade);
 
             strcat(gradeList, newGrade);
@@ -175,7 +180,8 @@ StudentModel_removeStudentSubject(string studentNumber,
      */
 
     // Get the subject index
-    string subjects = FileUtil_getStudentInfoProperty(4, studentNumber);
+    char subjects[256];
+    strcpy(subjects, FileUtil_getStudentInfoProperty(4, studentNumber));
 
     int subjectIndex = 0;
     string token = strtok(subjects, ",");
@@ -194,7 +200,8 @@ StudentModel_removeStudentSubject(string studentNumber,
 
     // Remove the subject from the list
     int loopSubjectIndex = 0;
-    string subjectList = NULL;
+    char subjectList[256];
+    strcpy(subjectList, "");
     string subjectToken = strtok(subjects, ",");
     while (subjectToken != NULL) {
         if (subjectToken[0] == ' ') { // Remove the first character
@@ -213,10 +220,12 @@ StudentModel_removeStudentSubject(string studentNumber,
     }
 
     // Remove the subject from the grade list
-    string grades = FileUtil_getStudentInfoProperty(5, studentNumber);
+    char grades[256];
+    strcpy(grades, FileUtil_getStudentInfoProperty(5, studentNumber));
 
     int loopGradeIndex = 0;
-    string gradeList = NULL;
+    char gradeList[256];
+    strcpy(gradeList, "");
     string gradeToken = strtok(grades, ",");
     while (gradeToken != NULL) {
         if (gradeToken[0] == ' ') { // Remove the first character
@@ -248,8 +257,10 @@ StudentModel_removeStudent(string studentNumber)
 
     FILE *fp = FileUtil_openFile("StudentInfo.txt", "r");
 
-    string fileLines = NULL;
-    string line = NULL;
+    char fileLines[256];
+    strcpy(fileLines, "");
+    char line[256];
+    strcpy(line, "");
     bool numberFound = false;
     while (fgets(line, 256, fp) != NULL) {
         numberFound = false;
@@ -293,9 +304,12 @@ StudentModel_displayStudentInfo(string studentNumber)
 
     FILE *fp = FileUtil_openFile("StudentInfo.txt", "r");
 
-    string subjects = NULL;
-    string grades = NULL;
-    string line = NULL;
+    char subjects[256];
+    strcpy(subjects, "");
+    char grades[256];
+    strcpy(grades, "");
+    char line[256];
+    strcpy(line, "");
     bool numberFound = false;
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
@@ -375,8 +389,10 @@ StudentModel_displayAllStudentInfo()
 
     FILE *fp = FileUtil_openFile("StudentInfo.txt", "r");
 
-    string fileLines = NULL;
-    string line = NULL;
+    char fileLines[256];
+    strcpy(fileLines, "");
+    char line[256];
+    strcpy(line, "");
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
         string token = strtok(line, "|");

@@ -42,8 +42,10 @@ SubjectModel_modifySubject(string subjectName,
 
     FILE *fp = FileUtil_openFile("SubjectInfo.txt", "r");
 
-    string fileLines = NULL;
-    string line = NULL;
+    char fileLines[256];
+    strcpy(fileLines, "");
+    char line[256];
+    strcpy(line, "");
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
         string token = strtok(line, "|");
@@ -90,8 +92,10 @@ SubjectModel_removeSubject(string subjectName)
 
     FILE *fp = FileUtil_openFile("SubjectInfo.txt", "r");
 
-    string fileLines = NULL;
-    string line = NULL;
+    char fileLines[256];
+    strcpy(fileLines, "");
+    char line[256];
+    strcpy(line, "");
     bool subjectFound = false;
     while (fgets(line, 256, fp) != NULL) {
         subjectFound = false;
@@ -135,8 +139,10 @@ SubjectModel_getSubjectCriteria(string subjectName)
 
     FILE *fp = FileUtil_openFile("SubjectInfo.txt", "r");
 
-    string fileLines = NULL;
-    string line = NULL;
+    char fileLines[256];
+    strcpy(fileLines, "");
+    char line[256];
+    strcpy(line, "");
     bool subjectFound = false;
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
@@ -185,8 +191,10 @@ SubjectModel_getSubjectRange(string subjectName)
 
     FILE *fp = FileUtil_openFile("SubjectInfo.txt", "r");
 
-    string fileLines = NULL;
-    string line = NULL;
+    char fileLines[256];
+    strcpy(fileLines, "");
+    char line[256];
+    strcpy(line, "");
     bool subjectFound = false;
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
@@ -237,8 +245,10 @@ SubjectModel_listSubjects()
 
     FILE *fp = FileUtil_openFile("SubjectInfo.txt", "r");
 
-    string fileLines = NULL;
-    string line = NULL;
+    char fileLines[256];
+    strcpy(fileLines, "");
+    char line[256];
+    strcpy(line, "");
     bool subjectFound = false;
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string

@@ -14,6 +14,7 @@
 
     // Project headers
     #include "../utils/UserDefinitions.h"
+    #include "HandleInputView.h"
 
     void DisplayView_printUserPrivilegeMenu();
     void DisplayView_printHeadUserDecoration(const privilege userPrivilege);

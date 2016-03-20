@@ -77,6 +77,7 @@ DisplayView_printAdminSubMenu(const tasks userTask)
      * to a task in an admin menu.
      */
 
+    system("clear");
     printf("GRADING BOOK MENU");
     DisplayView_printHeadUserDecoration(ADMIN);
 
@@ -85,6 +86,8 @@ DisplayView_printAdminSubMenu(const tasks userTask)
             printf("Add\n");
             printf("  1) Add Students\n");
             printf("  2) Add Subjects\n");
+            HandleInputView_inputAdminAdd();
+
             break;
         case DELETE:
             printf("Delete\n");

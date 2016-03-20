@@ -11,40 +11,41 @@
     #include <stdio.h>
 
     // Project headers
+    #include "../utils/DataTypeDefinitions.h"
     #include "../model/StudentModel.h"
     #include "../model/SubjectModel.h"
 
-    void Controller_addStudent(string name.
-                               string course,
+    void Controller_addStudent(char name[],
+                               char course[],
                                int year,
-                               string studentNumber,
-                               string subjects,
-                               string grades);
-    void Controller_addSubject(string subjectName,
-                               string subjectCriteria,
-                               string subjectRange);
-    void Controller_removeStudent(string studentNumber);
-    void Controller_removeSubject(string subjectName);
-    void Controller_updateStudentInfo(string name.
-                                      string course,
+                               char studentNumber[],
+                               char subjects[],
+                               char grades[]);
+    void Controller_addSubject(char subjectName[],
+                               char subjectCriteria[],
+                               char subjectRange[]);
+    void Controller_removeStudent(char studentNumber[]);
+    void Controller_removeSubject(char subjectName[]);
+    void Controller_updateStudentInfo(char name[],
+                                      char course[],
                                       int year,
-                                      string studentNumber,
-                                      string newStudentNumber);
-    void Controller_addStudentSubject(string studentNumber,
-                                      string subject);
-    void Controller_removeStudentSubject(string studentNumber,
-                                         string subjectName);
-    void Controller_updateStudentSubjectGrade(string studentNumber,
-                                              string subjectName,
+                                      char studentNumber[],
+                                      char newStudentNumber[]);
+    void Controller_addStudentSubject(char studentNumber[],
+                                      char subject[]);
+    void Controller_removeStudentSubject(char studentNumber[],
+                                         char subjectName[]);
+    void Controller_updateStudentSubjectGrade(char studentNumber[],
+                                              char subjectName[],
                                               double subjectGrade);
-    void Controller_updateSubjectName(string subjectName,
-                                      string newSubjectName);
-    void Controller_updateSubjectCriteria(string subjectName,
-                                          string subjectCriteria);
-    void Controller_updateSubjectRange(string subjectName,
-                                       string subjectRange);
+    void Controller_updateSubjectName(char subjectName[],
+                                      char newSubjectName[]);
+    void Controller_updateSubjectCriteria(char subjectName[],
+                                          char subjectCriteria[]);
+    void Controller_updateSubjectRange(char subjectName[],
+                                       char subjectRange[]);
     void Controller_listSubjects();
-    void Controller_displayStudentInfo(string studentNumber);
+    void Controller_displayStudentInfo(char studentNumber[]);
     void Controller_displayAllStudentInfo();
 
 #endif

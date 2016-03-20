@@ -37,8 +37,10 @@ FileUtil_modifyStudentInfoProperty(const int index,
     // Locate the student number
     FILE *fp = FileUtil_openFile("StudentInfo.txt", "r");
 
-    string fileLines = NULL;
-    string line = NULL;
+    char fileLines[256];
+    strcpy(fileLines, "");
+    char line[256];
+    strcpy(line, "");
     bool numberFound = false;
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
@@ -59,7 +61,8 @@ FileUtil_modifyStudentInfoProperty(const int index,
 
         if (numberFound) {
             // Let's tokenize again
-            string lineInfo = NULL;
+            char lineInfo[256];
+            strcpy(lineInfo, "");
             string token = strtok(line, "|");
             int tokenNumber = 0;
             while (token != NULL) {
@@ -114,8 +117,10 @@ FileUtil_getStudentInfoProperty(const int index,
 
     FILE *fp = FileUtil_openFile("StudentInfo.txt", "r");
 
-    string fileLines = NULL;
-    string line = NULL;
+    char fileLines[256];
+    strcpy(fileLines, "");
+    char line[256];
+    strcpy(line, "");
     bool numberFound = false;
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
