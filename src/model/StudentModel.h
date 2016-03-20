@@ -13,6 +13,7 @@
 
     // Project headers
     #include "../utils/DataTypeDefinitions.h"
+    #include "../utils/FileUtil.h"
 
     void StudentModel_addStudent(string name,
                                  string course,

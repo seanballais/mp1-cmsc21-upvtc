@@ -19,6 +19,22 @@ StudentModel_addStudent(string name,
      * Append the student to the database.
      */
 
+    FILE *fp = FileUtil_openFile("StudentInfo.txt", "a");
+
+    fprintf(
+        fp,
+        "|%s|%s|%d|%s|%s|%s|\n",
+        name,
+        course,
+        year,
+        studentNumber,
+        subjects,
+        grades
+    );
+
+    fclose(fp);
+
+    return;
 }
 
 void StudentModel_addStudentSubject(string studentNumber,
@@ -28,8 +44,9 @@ void StudentModel_addStudentSubject(string studentNumber,
      * Add a subject to a student.
      */
 
-    // Get the subject list
-    // Modify and place the string back to the database
+    // Locate the student number
+    FILE *fp = FileUtil_openFile("StudentInfo.txt", "r+");
+
 }
 
 void StudentModel_modifyStudentName(string studentNumber,
