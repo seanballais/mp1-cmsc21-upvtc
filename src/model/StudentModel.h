@@ -9,18 +9,17 @@
 #define STUDENTMODEL_H
 
     #include <stdio.h>
+    #include <string.h>
 
     // Project headers
     #include "../utils/DataTypeDefinitions.h"
-
-    // Included libraries
-    #include "../../include/jansson.h"
 
     void StudentModel_addStudent(string name,
                                  string course,
                                  int year,
                                  string studentNumber,
-                                 string subjects[]);
+                                 string subjects,
+                                 string grades);
     void StudentModel_addStudentSubject(string studentNumber,
                                         string subject);
     void StudentModel_modifyStudentName(string studentNumber,
@@ -31,9 +30,6 @@
                                         int year);
     void StudentModel_modifyStudentNumber(string studentNumber,
                                           string newStudentNumber);
-    void StudentModel_modifyStudentSubjectName(string studentNumber,
-                                               string subjectName,
-                                               string newSubjectName);
     void StudentModel_modifyStudentSubjectGrade(string studentNumber,
                                                 string subjectName,
                                                 double subjectGrade);
