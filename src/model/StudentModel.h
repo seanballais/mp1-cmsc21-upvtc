@@ -34,6 +34,8 @@
     void StudentModel_modifyStudentSubjectGrade(string studentNumber,
                                                 string subjectName,
                                                 double subjectGrade);
+    string StudentModel_getStudentSubjects(string studentNumber);
+    string StudentModel_getStudentSubjectsGrade(string studentNumber);
     void StudentModel_removeStudentSubject(string studentNumber,
                                            string subjectName);
     void StudentModel_removeStudent(string studentNumber);

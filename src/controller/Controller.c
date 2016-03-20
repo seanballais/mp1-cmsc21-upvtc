@@ -215,3 +215,23 @@ Controller_getSubjectRange(string subjectName)
 
     return SubjectModel_getSubjectRange(subjectName);
 }
+
+string
+Controller_getStudentSubjects(string studentNumber)
+{
+    /*
+     * Get the student subjects.
+     */
+
+    return StudentModel_getStudentSubjects(studentNumber);
+}
+
+string
+Controller_getStudentSubjectsGrade(string studentNumber)
+{
+    /*
+     * Get the student subjects grade.
+     */
+
+    return StudentModel_getStudentSubjectsGrade(studentNumber);
+}

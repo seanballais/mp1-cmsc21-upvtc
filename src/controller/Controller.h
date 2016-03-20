@@ -45,6 +45,8 @@
     void Controller_updateSubjectRange(char subjectName[],
                                        char subjectRange[]);
     void Controller_listSubjects();
+    string Controller_getStudentSubjects(string studentNumber);
+    string Controller_getStudentSubjectsGrade(string studentNumber);
     string Controller_getSubjectCriteria(string subjectName);
     string Controller_getSubjectRange(string subjectName);
     void Controller_displayStudentInfo(char studentNumber[]);

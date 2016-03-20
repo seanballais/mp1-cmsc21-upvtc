@@ -248,6 +248,106 @@ StudentModel_removeStudentSubject(string studentNumber,
     FileUtil_modifyStudentInfoProperty(5, studentNumber, grades, 'r');
 }
 
+string
+StudentModel_getStudentSubjects(string studentNumber)
+{
+    /*
+     * Get the student subject.
+     */
+
+    FILE *fp = FileUtil_openFile("StudentInfo.txt", "r");
+
+    char line[256];
+    strcpy(line, "");
+    bool numberFound = false;
+    while (fgets(line, 256, fp) != NULL) {
+        numberFound = false;
+        // Tokenize the string
+        string token = strtok(line, "|");
+        int tokenNumber = 0;
+        while (token != NULL) {
+            // Continue looping until the token points to the student number
+            if (tokenNumber == 3) { // Located the student number
+                if (strcmp(studentNumber, token) == 0) {
+                    numberFound = true;
+                    break;
+                }
+            } else {
+                tokenNumber++;
+                token = strtok(NULL, "|");
+            }
+        }
+
+        if (numberFound) {
+            string numberToken = strtok(line, "|");
+            int tokenNumber = 0;
+            while (token != NULL) {
+                // Continue looping until the token points to the student number
+                if (tokenNumber == 4) { // Located the student number
+                    fclose(fp);
+                    return numberToken;
+                }
+
+                tokenNumber++;
+                numberToken = strtok(NULL, "|");
+            }
+        }
+    }
+
+    fclose(fp);
+    return "None";
+}
+
+string
+StudentModel_getStudentSubjectsGrade(string studentNumber)
+{
+    /*
+     * Get the student subject grades.
+     */
+
+    FILE *fp = FileUtil_openFile("StudentInfo.txt", "r");
+
+    char line[256];
+    strcpy(line, "");
+    bool numberFound = false;
+    while (fgets(line, 256, fp) != NULL) {
+        numberFound = false;
+        // Tokenize the string
+        string token = strtok(line, "|");
+        int tokenNumber = 0;
+        while (token != NULL) {
+            // Continue looping until the token points to the student number
+            if (tokenNumber == 3) { // Located the student number
+                if (strcmp(studentNumber, token) == 0) {
+                    numberFound = true;
+                    break;
+                }
+            } else {
+                tokenNumber++;
+                token = strtok(NULL, "|");
+            }
+        }
+
+        if (numberFound) {
+            string numberToken = strtok(line, "|");
+            int tokenNumber = 0;
+            while (token != NULL) {
+                // Continue looping until the token points to the student number
+                if (tokenNumber == 5) { // Located the student number
+                    fclose(fp);
+                    return numberToken;
+                }
+
+                tokenNumber++;
+                numberToken = strtok(NULL, "|");
+            }
+        }
+    }
+
+    fclose(fp);
+    return "None";
+}
+
 void
 StudentModel_removeStudent(string studentNumber)
 {

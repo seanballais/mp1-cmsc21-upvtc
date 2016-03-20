@@ -35,6 +35,9 @@ HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
                     updateOption = GetInt();
                     if (updateOption == 1) {
                         DisplayView_printAdminUpdateStudentSubMenu();
+                        if (HandleInputView_inputAdminUpdateStudent() == 4) {
+                            HandleInputView_inputPrivilegeSubMenu(userPrivilege);
+                        }
                     } else if (updateOption == 2) {
                         DisplayView_printAdminUpdateSubjectSubMenu();
                     }
@@ -322,6 +325,213 @@ HandleInputView_inputAdminDelete()
         }
     } else if (opt == 3) {
         return 3;
+    }
+
+    return 0;
+}
+
+int
+HandleInputView_inputAdminUpdateStudent()
+{
+    /*
+     * Handle the update for the student.
+     */
+
+    int opt = 0;
+    do {
+        printf("Input: ");
+        opt = GetInt();
+
+        if (opt < 1 || opt > 4) {
+            printf("Input must not be greater than 4 or less than 1!\n");
+        }
+    } while (opt < 1 || opt > 4);
+
+    system("clear");
+    if (opt == 1) { // Add students
+        char name[256];
+        strcpy(name, "");
+        char course[256];
+        strcpy(course, "");
+        int year = 0;
+        char studentNumber[256];
+        strcpy(studentNumber, "");
+        char newStudentNumber[256];
+        strcpy(newStudentNumber, "");
+
+        bool updateStudents = true;
+        while (updateStudents) {
+            printf("Student Information\n");
+            printf("Student Number: ");
+            strcpy(studentNumber, GetString());
+
+            printf("Updating details\n");
+            printf("Name: ");
+            strcpy(name, GetString());
+
+            printf("Course: ");
+            strcpy(course, GetString());
+
+            printf("Year: ");
+            year = GetInt();
+
+            printf("Student Number: ");
+            strcpy(newStudentNumber, GetString());
+
+            char subjects[256];
+            strcpy(subjects, "");
+            char grades[256];
+            strcpy(grades, "");
+
+            Controller_updateStudentInfo(
+                name,
+                course,
+                year,
+                studentNumber,
+                newStudentNumber
+            );
+            printf("Updated student %s.\n", name);
+
+            printf("Update more students? (1 for yes, 2 for no) ");
+            int studOpt = GetInt();
+
+            if (studOpt != 1) {
+                updateStudents = false;
+            }
+
+            system("clear");
+        }
+    } else if (opt == 2) {
+        char studentNumber[256];
+        strcpy(studentNumber, "");
+
+        printf("Update Student Subjects\n");
+        printf("Student Number: ");
+        strcpy(studentNumber, GetString());
+
+        bool updateSubjects = true;
+        while (updateSubjects) {
+            int opt = 1;
+            printf("Add (1) or Remove (2) subjects? ");
+            opt = GetInt();
+            if (opt == 1) {
+                char subject[256];
+                strcpy(subject, "");
+
+                printf("Subject to add: ");
+                strcpy(subject, GetString());
+
+                Controller_addStudentSubject(studentNumber, subject);
+            } else if (opt == 2) {
+                char subject[256];
+                strcpy(subject, "");
+
+                printf("Subject to remove: ");
+                strcpy(subject, GetString());
+
+                Controller_removeStudentSubject(studentNumber, subject);
+            }
+
+            printf("Add or remove more subjects? (1 for yes, 2 for no) ");
+            opt = GetInt();
+
+            if (opt != 1) {
+                updateSubjects = false;
+            }
+        }
+    } else if (opt == 3) { // Update a subject grade
+        char studentNumber[256];
+        strcpy(studentNumber, "");
+        char subjects[256];
+        strcpy(subjects, "");
+
+        printf("Update student subject grades\n");
+        printf("Student Number: ");
+        strcpy(studentNumber, GetString());
+
+        bool updateSubjectGrades = true;
+        while (updateSubjectGrades) {
+            // Print the subjects
+            printf("Subjects of %s\n", studentNumber);
+            strcpy(subjects, Controller_getStudentSubjects(studentNumber));
+            string token = strtok(subjects, ",");
+            while (token != NULL) {
+                if (token[0] == ' ') {
+                    token++;
+                }
+
+                printf("  - %s\n", token);
+
+                token = strtok(NULL, ",");
+            }
+
+            // Selection
+            char subject[256];
+            strcpy(subject, "");
+            printf("Subject to update the grade: ");
+            strcpy(subject, GetString());
+
+            // Now get the grade
+            char subjectCriteria[256];
+            strcpy(subjectCriteria, Controller_getSubjectCriteria(subject));
+            char subjectRange[256];
+            strcpy(subjectRange, Controller_getSubjectRange(subject));
+
+            // Calculate grade from criteria
+            printf("Input grade\n");
+            double rate = 0;
+            double grade = 0.0;
+            string criteriaToken = strtok(subjectCriteria, ",");
+            int index = 0;
+            while (criteriaToken != NULL) {
+                if (criteriaToken[0] == ' ') {
+                    criteriaToken++;
+                }
+
+                if (index == 0) {
+                    // Print criteria name
+                    printf("%s: ", criteriaToken);
+                    rate = GetDouble();
+
+                    index = 1;
+                } else if (index == 1) {
+                    // Get the percentage and convert the rate
+                    grade += rate * (atof(token) / 100);
+
+                    index = 0;
+                }
+
+                criteriaToken = strtok(NULL, ",");
+            }
+
+            // Convert to denominations
+            string rangeToken = strtok(subjectRange, ",");
+            while (rangeToken != NULL) {
+                if (rangeToken[0] == ' ') {
+                    rangeToken++;
+                }
+
+                if (grade >= atof(rangeToken)) {
+                    grade = atof(rangeToken);
+                    break;
+                }
+
+                rangeToken = strtok(NULL, ",");
+            }
+
+            Controller_updateStudentSubjectGrade(studentNumber,
+                                                 subject,
+                                                 grade);
+
+            printf("Update more grades of subject? (1 for yes, 2 for no) ");
+            opt = GetInt();
+
+            if (opt != 1) {
+                updateSubjectGrades = false;
+            }
+        }
+    } else if (opt == 4) {
+        return 4;
     }
 
     return 0;
