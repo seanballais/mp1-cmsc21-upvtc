@@ -30,25 +30,25 @@ HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
 
                 // Handle the [sub] submenu
                 printf("Input: ");
-                int updateOption = 0;
-                do {
-                    updateOption = GetInt();
-                    if (updateOption == 1) {
-                        DisplayView_printAdminUpdateStudentSubMenu();
-                        if (HandleInputView_inputAdminUpdateStudent() == 4) {
-                            DisplayView_printAdminSubMenu(userOption - 1);
-                        }
-                    } else if (updateOption == 2) {
-                        DisplayView_printAdminUpdateSubjectSubMenu();
-                        if (HandleInputView_inputAdminUpdateSubject() == 4) {
-                            DisplayView_printAdminSubMenu(userOption - 1);
-                        }
-                    } else if (updateOption == 3) {
-                        HandleInputView_inputPrivilegeSubMenu(userPrivilege);
+                int updateOption = GetInt();
+                if (updateOption == 1) {
+                    DisplayView_printAdminUpdateStudentSubMenu();
+                    if (HandleInputView_inputAdminUpdateStudent() == 4) {
+                        DisplayView_printAdminSubMenu(userOption - 1);
                     }
-                } while (updateOption < 1 || updateOption > 3);
+                } else if (updateOption == 2) {
+                    DisplayView_printAdminUpdateSubjectSubMenu();
+                    if (HandleInputView_inputAdminUpdateSubject() == 4) {
+                        DisplayView_printAdminSubMenu(userOption - 1);
+                    }
+                }
+
+                HandleInputView_inputPrivilegeSubMenu(userPrivilege);
             } else if (userOption == 4) {
-                // Display student Information
+                HandleInputView_inputAdminDisplayStudentInfo();
+
+                DisplayView_printMenu(userPrivilege);
+                HandleInputView_inputPrivilegeSubMenu(userPrivilege);
             } else if (userOption == 5) {
                 exit(0);
             } else {
@@ -353,7 +353,7 @@ HandleInputView_inputAdminUpdateStudent()
     } while (opt < 1 || opt > 4);
 
     system("clear");
-    if (opt == 1) { // Add students
+    if (opt == 1) { // Update students
         char name[256];
         strcpy(name, "");
         char course[256];
@@ -385,16 +385,23 @@ HandleInputView_inputAdminUpdateStudent()
 
             char subjects[256];
             strcpy(subjects, "");
+            strcpy(subjects, Controller_getStudentSubjects(studentNumber));
+
             char grades[256];
             strcpy(grades, "");
+            strcpy(grades, Controller_getStudentSubjectsGrade(studentNumber));
+
 
             Controller_updateStudentInfo(
                 name,
                 course,
                 year,
                 studentNumber,
-                newStudentNumber
+                newStudentNumber,
+                subjects,
+                grades
             );
+
             printf("Updated student %s.\n", name);
 
             printf("Update more students? (1 for yes, 2 for no) ");
@@ -670,4 +677,31 @@ HandleInputView_inputAdminUpdateSubject()
     }
 
     return 0;
+}
+
+void
+HandleInputView_inputAdminDisplayStudentInfo()
+{
+    /*
+     * Handle Display of input.
+     */
+
+    printf("Display all student info (1) or specify student (2)? ");
+    int opt = GetInt();
+
+    if (opt == 1) { // Display all student info
+        printf("Display all student info.\n");
+        Controller_displayAllStudentInfo();
+
+        printf("Press Enter key to continue...");
+        getchar();
+    } else if (opt == 2) { // Specify student to display output
+        printf("Display Student Info.\n");
+        printf("Student Number: ");
+
+        char studentNumber[256];
+        strcpy(studentNumber, GetString());
+
+        Controller_displayStudentInfo(studentNumber);
+    }
 }

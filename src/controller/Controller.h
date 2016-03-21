@@ -30,7 +30,9 @@
                                       char course[],
                                       int year,
                                       char studentNumber[],
-                                      char newStudentNumber[]);
+                                      char newStudentNumber[],
+                                      char subjects[],
+                                      char grades[]);
     void Controller_addStudentSubject(char studentNumber[],
                                       char subject[]);
     void Controller_removeStudentSubject(char studentNumber[],

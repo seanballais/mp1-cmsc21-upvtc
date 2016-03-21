@@ -70,16 +70,23 @@ Controller_updateStudentInfo(char name[],
                              char course[],
                              int year,
                              char studentNumber[],
-                             char newStudentNumber[])
+                             char newStudentNumber[],
+                             char subjects[],
+                             char grades[])
 {
     /*
      * Update student information.
      */
 
-    StudentModel_modifyStudentName(studentNumber, name);
-    StudentModel_modifyStudentCourse(studentNumber, course);
-    StudentModel_modifyStudentYear(studentNumber, year);
-    StudentModel_modifyStudentNumber(studentNumber, newStudentNumber);
+    StudentModel_modifyStudent(
+        name,
+        course,
+        year,
+        studentNumber,
+        newStudentNumber,
+        subjects,
+        grades
+    );
 
     return;
 }

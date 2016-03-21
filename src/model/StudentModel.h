@@ -23,14 +23,13 @@
                                  string grades);
     void StudentModel_addStudentSubject(string studentNumber,
                                         string subject);
-    void StudentModel_modifyStudentName(string studentNumber,
-                                        string name);
-    void StudentModel_modifyStudentCourse(string studentNumber,
-                                          string course);
-    void StudentModel_modifyStudentYear(string studentNumber,
-                                        int year);
-    void StudentModel_modifyStudentNumber(string studentNumber,
-                                          string newStudentNumber);
+    void StudentModel_modifyStudent(string name,
+                                    string course,
+                                    int year,
+                                    string studentNumber,
+                                    string newStudentNumber,
+                                    string subjects,
+                                    string grades);
     void StudentModel_modifyStudentSubjectGrade(string studentNumber,
                                                 string subjectName,
                                                 double subjectGrade);

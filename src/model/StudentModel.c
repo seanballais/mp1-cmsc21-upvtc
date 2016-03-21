@@ -55,56 +55,27 @@ StudentModel_addStudentSubject(string studentNumber,
 }
 
 void
-StudentModel_modifyStudentName(string studentNumber,
-                               string name)
+StudentModel_modifyStudent(string name,
+                           string course,
+                           int year,
+                           string studentNumber,
+                           string newStudentNumber,
+                           string subjects,
+                           string grades)
 {
     /*
-     * Modify student name.
+     * Modify the student.
      */
 
-    FileUtil_modifyStudentInfoProperty(0, studentNumber, name, 'r');
-
-    return;
-}
-
-void
-StudentModel_modifyStudentCourse(string studentNumber,
-                                 string course)
-{
-    /*
-     * Modify the student course.
-     */
-
-    FileUtil_modifyStudentInfoProperty(1, studentNumber, studentNumber, 'r');
-
-    return;
-}
-
-void
-StudentModel_modifyStudentYear(string studentNumber,
-                               int year)
-{
-    /*
-     * Modify the student year.
-     */
-    char strYear[256];
-    strcpy(strYear, "");
-    sprintf(strYear, "%d", year);
-
-    FileUtil_modifyStudentInfoProperty(2, studentNumber, strYear, 'r');
-
-    return;
-}
-
-void
-StudentModel_modifyStudentNumber(string studentNumber,
-                                 string newStudentNumber)
-{
-    /*
-     * Modify the student number.
-     */
-
-    FileUtil_modifyStudentInfoProperty(3, studentNumber, newStudentNumber, 'r');
+    StudentModel_removeStudent(studentNumber);
+    StudentModel_addStudent(
+        name,
+        course,
+        year,
+        newStudentNumber,
+        subjects,
+        grades
+    );
 
     return;
 }
@@ -261,6 +232,8 @@ StudentModel_getStudentSubjects(string studentNumber)
     strcpy(line, "");
     bool numberFound = false;
     while (fgets(line, 256, fp) != NULL) {
+        char tmpLine[256];
+        strcpy(tmpLine, line);
         numberFound = false;
         // Tokenize the string
         string token = strtok(line, "|");
@@ -272,14 +245,14 @@ StudentModel_getStudentSubjects(string studentNumber)
                     numberFound = true;
                     break;
                 }
-            } else {
-                tokenNumber++;
-                token = strtok(NULL, "|");
             }
+
+            tokenNumber++;
+            token = strtok(NULL, "|");
         }
 
         if (numberFound) {
-            string numberToken = strtok(line, "|");
+            string numberToken = strtok(tmpLine, "|");
             int tokenNumber = 0;
             while (token != NULL) {
                 // Continue looping until the token points to the student number
@@ -311,6 +284,8 @@ StudentModel_getStudentSubjectsGrade(string studentNumber)
     strcpy(line, "");
     bool numberFound = false;
     while (fgets(line, 256, fp) != NULL) {
+        char tmpLine[256];
+        strcpy(tmpLine, line);
         numberFound = false;
         // Tokenize the string
         string token = strtok(line, "|");
@@ -329,7 +304,7 @@ StudentModel_getStudentSubjectsGrade(string studentNumber)
         }
 
         if (numberFound) {
-            string numberToken = strtok(line, "|");
+            string numberToken = strtok(tmpLine, "|");
             int tokenNumber = 0;
             while (token != NULL) {
                 // Continue looping until the token points to the student number
@@ -363,6 +338,8 @@ StudentModel_removeStudent(string studentNumber)
     strcpy(line, "");
     bool numberFound = false;
     while (fgets(line, 256, fp) != NULL) {
+        char tmpLine[256];
+        strcpy(tmpLine, line);
         numberFound = false;
         // Tokenize the string
         string token = strtok(line, "|");
@@ -370,18 +347,13 @@ StudentModel_removeStudent(string studentNumber)
         while (token != NULL) {
             // Continue looping until the token points to the student number
             if (tokenNumber == 3) { // Located the student number
-                if (strcmp(studentNumber, token) == 0) {
-                    numberFound = true;
-                    break;
+                if (strcmp(studentNumber, token) != 0) {
+                    strcat(fileLines, tmpLine);
                 }
-            } else {
-                tokenNumber++;
-                token = strtok(NULL, "|");
             }
-        }
 
-        if (!numberFound) {
-            strcat(fileLines, line);
+            tokenNumber++;
+            token = strtok(NULL, "|");
         }
     }
 
@@ -411,8 +383,10 @@ StudentModel_displayStudentInfo(string studentNumber)
     char line[256];
     strcpy(line, "");
     bool numberFound = false;
+    char tmpLine[256];
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
+        strcpy(tmpLine, line);
         string token = strtok(line, "|");
         int tokenNumber = 0;
         while (token != NULL) {
@@ -445,16 +419,22 @@ StudentModel_displayStudentInfo(string studentNumber)
         printf("-----\n");
 
         // Loop to get the basic information
-        string infoToken = strtok(line, "|");
+        string infoToken = strtok(tmpLine, "|");
         int tokenIndex = 0;
         while (infoToken != NULL && tokenIndex < 4) {
             if (tokenIndex == 0) {
                 printf("Name: %s\n", infoToken);
-            } else if (tokenIndex == 1) {
+            }
+
+            if (tokenIndex == 1) {
                 printf("Course and Year: %s ", infoToken);
-            } else if (tokenIndex == 2) {
+            }
+
+            if (tokenIndex == 2) {
                 printf("%s\n", infoToken);
-            } else if (tokenIndex == 3) {
+            }
+
+            if (tokenIndex == 3) {
                 printf("Student Number: %s\n", infoToken);
             }
 

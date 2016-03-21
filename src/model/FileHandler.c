@@ -42,11 +42,16 @@ FileUtil_modifyStudentInfoProperty(const int index,
     char line[256];
     strcpy(line, "");
     bool numberFound = false;
+    bool skipIf = false;
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
-        string token = strtok(line, "|");
+        char tmpLine[256];
+        strcpy(tmpLine, line);
+        char numberLine[256];
+        strcpy(numberLine, line);
+        string token = strtok(tmpLine, "|");
         int tokenNumber = 0;
-        while (token != NULL) {
+        while (token != NULL && !numberFound) {
             // Continue looping until the token points to the student number
             if (tokenNumber == 3) { // Located the student number
                 if (strcmp(studentNumber, token) == 0) {
@@ -59,41 +64,39 @@ FileUtil_modifyStudentInfoProperty(const int index,
             }
         }
 
-        if (numberFound) {
+        if (numberFound && !skipIf) {
             // Let's tokenize again
             char lineInfo[256];
             strcpy(lineInfo, "");
-            string token = strtok(line, "|");
+            string token = strtok(numberLine, "|\n");
             int tokenNumber = 0;
             while (token != NULL) {
                 // Continue looping until the token points to the subjects
-                if (tokenNumber == index) {
-                    if (mode == 'a') {
-                        strcat(token, ", ");
-                        strcat(token, newVal);
-                    } else if (mode == 'r') {
-                        strcpy(token, newVal);
-                    }
-                } else if (tokenNumber == 0 && mode == 'a') {
-                    strcat(lineInfo, token);
-
-                    tokenNumber++;
-                    token = strtok(NULL, "|");
-
-                    continue;
+                if (tokenNumber == index && mode == 'a') {
+                    strcat(token, ", ");
+                    strcat(token, newVal);
+                } else if (tokenNumber == index && mode == 'r') {
+                    strcpy(token, newVal);
                 }
 
-                strcat(lineInfo, "|");
                 strcat(lineInfo, token);
+                strcat(lineInfo, "|");
 
                 tokenNumber++;
-                token = strtok(NULL, "|");
+                token = strtok(NULL, "|\n");
+            }
+
+            char *pos;
+            if ((pos = strrchr(lineInfo, '|')) != NULL) {
+                *pos = '\0';
             }
 
             strcat(lineInfo, "\n");
 
             // Append the line to the string array
             strcat(fileLines, lineInfo);
+
+            skipIf = true;
         } else {
             strcat(fileLines, line);
         }
@@ -124,6 +127,8 @@ FileUtil_getStudentInfoProperty(const int index,
     bool numberFound = false;
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
+        char tmpLine[256];
+        strcpy(tmpLine, line);
         string token = strtok(line, "|");
         int tokenNumber = 0;
         while (token != NULL) {
@@ -141,7 +146,7 @@ FileUtil_getStudentInfoProperty(const int index,
 
         if (numberFound) {
             // Let's tokenize again
-            string token = strtok(line, "|");
+            string token = strtok(tmpLine, "|");
             int tokenNumber = 0;
             while (token != NULL) {
                 // Continue looping until the token points to the subjects
