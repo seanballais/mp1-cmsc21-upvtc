@@ -297,16 +297,16 @@ StudentModel_getStudentSubjectsGrade(string studentNumber)
                     numberFound = true;
                     break;
                 }
-            } else {
-                tokenNumber++;
-                token = strtok(NULL, "|");
             }
+
+            tokenNumber++;
+            token = strtok(NULL, "|");
         }
 
         if (numberFound) {
             string numberToken = strtok(tmpLine, "|");
             int tokenNumber = 0;
-            while (token != NULL) {
+            while (numberToken != NULL) {
                 // Continue looping until the token points to the student number
                 if (tokenNumber == 5) { // Located the student number
                     fclose(fp);
@@ -426,10 +426,12 @@ StudentModel_displayStudentInfo(string studentNumber)
                     string subjectPtr;
 
                     char grades[256];
+
                     strcpy(
                         grades,
                         StudentModel_getStudentSubjectsGrade(studentNumber)
                     );
+
                     string gradePtr;
 
                     // Display the subjects
