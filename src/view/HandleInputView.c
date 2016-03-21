@@ -321,6 +321,8 @@ HandleInputView_inputAdminDelete()
             char subjectName[256];
             strcpy(subjectName, GetString());
 
+            printf("Okay\n");
+
             Controller_removeSubject(subjectName);
 
             printf("Delete another subject? (1 for yes, 2 for no) ");

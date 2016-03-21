@@ -104,7 +104,7 @@ DisplayView_printAdminSubMenu(const tasks userTask)
             printf("  2) Delete Subjects\n");
             printf("  3) Exit\n");
 
-            if (HandleInputView_inputAdminAdd() == 3) {
+            if (HandleInputView_inputAdminDelete() == 3) {
                 DisplayView_printMenu(ADMIN);
                 HandleInputView_inputPrivilegeSubMenu(ADMIN);
             }

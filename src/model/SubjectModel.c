@@ -105,16 +105,17 @@ SubjectModel_removeSubject(string subjectName)
         string token = strtok(line, "|");
         int tokenNumber = 0;
         while (token != NULL) {
-            // Continue looping until the token points to the student number
-            if (tokenNumber == 0) { // Located the student number
+            // Continue looping until the token points to the subject name
+            if (tokenNumber == 0) { // Located the subject name
                 if (strcmp(subjectName, token) == 0) {
                     subjectFound = true;
                     break;
                 }
-            } else {
-                tokenNumber++;
-                token = strtok(NULL, "|");
             }
+
+            tokenNumber++;
+            token = strtok(NULL, "|");
+
         }
 
         if (!subjectFound) {
@@ -159,10 +160,10 @@ SubjectModel_getSubjectCriteria(string subjectName)
                     subjectFound = true;
                     break;
                 }
-            } else {
-                tokenNumber++;
-                token = strtok(NULL, "|");
             }
+
+            tokenNumber++;
+            token = strtok(NULL, "|");
         }
 
         if (subjectFound) {
@@ -213,10 +214,10 @@ SubjectModel_getSubjectRange(string subjectName)
                     subjectFound = true;
                     break;
                 }
-            } else {
-                tokenNumber++;
-                token = strtok(NULL, "|");
             }
+
+            tokenNumber++;
+            token = strtok(NULL, "|");
         }
 
         if (subjectFound) {

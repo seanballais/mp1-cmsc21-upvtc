@@ -33,4 +33,6 @@ main()
     system("clear");
     DisplayView_printMenu(userPrivilege);
     HandleInputView_inputPrivilegeSubMenu(userPrivilege);
+
+    return 0;
 }
