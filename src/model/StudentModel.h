@@ -9,7 +9,10 @@
 #define STUDENTMODEL_H
 
     #include <stdio.h>
+
     #include <string.h>
+
+    extern char *strtok_r(char *, const char *, char **);
 
     // Project headers
     #include "../utils/DataTypeDefinitions.h"

@@ -43,7 +43,9 @@ HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
                     }
                 }
 
+                DisplayView_printMenu(0); // Admin
                 HandleInputView_inputPrivilegeSubMenu(userPrivilege);
+                system("clear");
             } else if (userOption == 4) {
                 HandleInputView_inputAdminDisplayStudentInfo();
 

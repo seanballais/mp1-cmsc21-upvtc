@@ -376,10 +376,6 @@ StudentModel_displayStudentInfo(string studentNumber)
 
     FILE *fp = FileUtil_openFile("StudentInfo.txt", "r");
 
-    char subjects[256];
-    strcpy(subjects, "");
-    char grades[256];
-    strcpy(grades, "");
     char line[256];
     strcpy(line, "");
     bool numberFound = false;
@@ -394,69 +390,79 @@ StudentModel_displayStudentInfo(string studentNumber)
             if (tokenNumber == 3) { // Located the student number
                 if (strcmp(studentNumber, token) == 0) {
                     printf("-----\n");
-                    numberFound = true;
-                }
-            }
 
-            if (numberFound && tokenNumber == 4) {
-                // Get the student subjects
-                strcpy(subjects, token);
-            } else if (numberFound && tokenNumber == 5) {
-                // Get the student grades
-                strcpy(grades, token);
+                    // Loop to get the basic information
+                    string infoToken = strtok(tmpLine, "|");
+                    int tokenIndex = 0;
+                    while (infoToken != NULL && tokenIndex < 4) {
+                        if (tokenIndex == 0) {
+                            printf("Name: %s\n", infoToken);
+                        }
+
+                        if (tokenIndex == 1) {
+                            printf("Course and Year: %s ", infoToken);
+                        }
+
+                        if (tokenIndex == 2) {
+                            printf("%s\n", infoToken);
+                        }
+
+                        if (tokenIndex == 3) {
+                            printf("Student Number: %s\n", infoToken);
+                        }
+
+                        tokenIndex++;
+                        infoToken = strtok(NULL, "|");
+                    }
+
+                    // Loop through the grades and subjects
+                    printf("Subjects:\n");
+
+                    char subjects[256];
+                    strcpy(
+                        subjects,
+                        StudentModel_getStudentSubjects(studentNumber)
+                    );
+                    string subjectPtr;
+
+                    char grades[256];
+                    strcpy(
+                        grades,
+                        StudentModel_getStudentSubjectsGrade(studentNumber)
+                    );
+                    string gradePtr;
+
+                    // Display the subjects
+                    string subjectToken = strtok_r(subjects, ",", &subjectPtr);
+                    string gradeToken = strtok_r(grades, ",", &gradePtr);
+                    while (subjectToken != NULL && gradeToken != NULL) {
+                        if (subjectToken[0] == ' ') {
+                            subjectToken++;
+                        }
+
+                        if (gradeToken[0] == ' ') {
+                            gradeToken++;
+                        }
+
+                        printf("  %s - %s\n", subjectToken, gradeToken);
+
+                        subjectToken = strtok_r(NULL, ",", &subjectPtr);
+                        gradeToken = strtok_r(NULL, ",", &gradePtr);
+                    }
+
+                    printf("-----\n\n");
+
+                    goto exitPoint;
+                }
             }
 
             tokenNumber++;
             token = strtok(NULL, "|");
         }
 
-        if (numberFound) {
-            break;
-        }
     }
 
-    if (numberFound) {
-        printf("-----\n");
-
-        // Loop to get the basic information
-        string infoToken = strtok(tmpLine, "|");
-        int tokenIndex = 0;
-        while (infoToken != NULL && tokenIndex < 4) {
-            if (tokenIndex == 0) {
-                printf("Name: %s\n", infoToken);
-            }
-
-            if (tokenIndex == 1) {
-                printf("Course and Year: %s ", infoToken);
-            }
-
-            if (tokenIndex == 2) {
-                printf("%s\n", infoToken);
-            }
-
-            if (tokenIndex == 3) {
-                printf("Student Number: %s\n", infoToken);
-            }
-
-            tokenIndex++;
-            infoToken = strtok(NULL, "|");
-        }
-
-        // Loop through the grades and subjects
-        printf("Subjects:\n");
-
-        string subjectToken = strtok(subjects, ",");
-        string gradeToken = strtok(grades, ",");
-        while (subjectToken != NULL && gradeToken != NULL) {
-            printf("  %s - %s\n", subjectToken, gradeToken);
-
-            subjectToken = strtok(NULL, ",");
-            gradeToken = strtok(NULL, ",");
-        }
-
-        printf("-----\n");
-    }
-
+    exitPoint:
     fclose(fp);
 }
 

@@ -79,7 +79,7 @@ DisplayView_printAdminSubMenu(const tasks userTask)
 
     system("clear");
     printf("GRADING BOOK MENU");
-    DisplayView_printHeadUserDecoration(ADMIN);
+    DisplayView_printHeadUserDecoration(0);
 
     switch (userTask) {
         case ADD:
@@ -89,8 +89,8 @@ DisplayView_printAdminSubMenu(const tasks userTask)
             printf("  3) Exit\n");
 
             if (HandleInputView_inputAdminAdd() == 3) {
-                DisplayView_printMenu(ADMIN);
-                HandleInputView_inputPrivilegeSubMenu(ADMIN);
+                DisplayView_printMenu(0);
+                HandleInputView_inputPrivilegeSubMenu(0);
             }
 
             system("clear");

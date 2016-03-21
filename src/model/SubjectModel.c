@@ -37,7 +37,7 @@ SubjectModel_modifySubject(string subjectName,
                            string subjectRange)
 {
     /*
-     * Remove a subject from the list.
+     * Modify a subject from the list.
      */
 
     FILE *fp = FileUtil_openFile("SubjectInfo.txt", "r");
@@ -98,6 +98,8 @@ SubjectModel_removeSubject(string subjectName)
     strcpy(line, "");
     bool subjectFound = false;
     while (fgets(line, 256, fp) != NULL) {
+        char tmpLine[256];
+        strcpy(tmpLine, line);
         subjectFound = false;
         // Tokenize the string
         string token = strtok(line, "|");
@@ -116,7 +118,7 @@ SubjectModel_removeSubject(string subjectName)
         }
 
         if (!subjectFound) {
-            strcat(fileLines, line);
+            strcat(fileLines, tmpLine);
         }
     }
 
@@ -146,6 +148,8 @@ SubjectModel_getSubjectCriteria(string subjectName)
     bool subjectFound = false;
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
+        char tmpLine[256];
+        strcpy(tmpLine, line);
         string token = strtok(line, "|");
         int tokenNumber = 0;
         while (token != NULL) {
@@ -163,7 +167,7 @@ SubjectModel_getSubjectCriteria(string subjectName)
 
         if (subjectFound) {
             // Let's tokenize again
-            string token = strtok(line, "|");
+            string token = strtok(tmpLine, "|");
             int tokenNumber = 0;
             while (token != NULL) {
                 // Continue looping until the token points to the subjects
@@ -198,6 +202,8 @@ SubjectModel_getSubjectRange(string subjectName)
     bool subjectFound = false;
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
+        char tmpLine[256];
+        strcpy(tmpLine, line);
         string token = strtok(line, "|");
         int tokenNumber = 0;
         while (token != NULL) {
@@ -215,7 +221,7 @@ SubjectModel_getSubjectRange(string subjectName)
 
         if (subjectFound) {
             // Let's tokenize again
-            string token = strtok(line, "|");
+            string token = strtok(tmpLine, "|");
             int tokenNumber = 0;
             while (token != NULL) {
                 // Continue looping until the token points to the subjects
