@@ -154,6 +154,9 @@ StudentModel_removeStudentSubject(string studentNumber,
     char subjects[256];
     strcpy(subjects, FileUtil_getStudentInfoProperty(4, studentNumber));
 
+    char tmpSubjects[256];
+    strcpy(tmpSubjects, subjects);
+
     int subjectIndex = 0;
     string token = strtok(subjects, ",");
     while (token != NULL) {
@@ -173,7 +176,7 @@ StudentModel_removeStudentSubject(string studentNumber,
     int loopSubjectIndex = 0;
     char subjectList[256];
     strcpy(subjectList, "");
-    string subjectToken = strtok(subjects, ",");
+    string subjectToken = strtok(tmpSubjects, ",");
     while (subjectToken != NULL) {
         if (subjectToken[0] == ' ') { // Remove the first character
             subjectToken++;
@@ -181,10 +184,10 @@ StudentModel_removeStudentSubject(string studentNumber,
 
         if (loopSubjectIndex == subjectIndex) {
             strcat(subjectList, ", ");
+        } else {
+            strcat(subjectList, subjectToken);
+            strcat(subjectList, ", ");
         }
-
-        strcat(subjectList, subjectToken);
-        strcat(subjectList, ", ");
 
         subjectToken = strtok(NULL, ",");
         loopSubjectIndex++;
@@ -205,18 +208,18 @@ StudentModel_removeStudentSubject(string studentNumber,
 
         if (loopGradeIndex == subjectIndex) {
             strcat(gradeList, ", ");
+        } else {
+            strcat(gradeList, gradeToken);
+            strcat(gradeList, ", ");
         }
-
-        strcat(gradeList, gradeToken);
-        strcat(gradeList, ", ");
 
         gradeToken = strtok(NULL, ",");
         loopGradeIndex++;
     }
 
     // Apply the changes
-    FileUtil_modifyStudentInfoProperty(4, studentNumber, subjects, 'r');
-    FileUtil_modifyStudentInfoProperty(5, studentNumber, grades, 'r');
+    FileUtil_modifyStudentInfoProperty(4, studentNumber, subjectList, 'r');
+    FileUtil_modifyStudentInfoProperty(5, studentNumber, gradeList, 'r');
 }
 
 string

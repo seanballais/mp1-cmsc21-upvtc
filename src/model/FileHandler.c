@@ -39,67 +39,82 @@ FileUtil_modifyStudentInfoProperty(const int index,
 
     char fileLines[256];
     strcpy(fileLines, "");
+
     char line[256];
     strcpy(line, "");
     bool numberFound = false;
-    bool skipIf = false;
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
         char tmpLine[256];
         strcpy(tmpLine, line);
+
         char numberLine[256];
         strcpy(numberLine, line);
-        string token = strtok(tmpLine, "|");
+
         int tokenNumber = 0;
+        string token = strtok(tmpLine, "|");
         while (token != NULL && !numberFound) {
             // Continue looping until the token points to the student number
             if (tokenNumber == 3) { // Located the student number
+                // Modify line
                 if (strcmp(studentNumber, token) == 0) {
+                    char lineInfo[256];
+                    strcpy(lineInfo, "");
+
+                    char tmpInfo[256];
+                    strcpy(tmpInfo, "");
+
+                    int tokenNumberIndex = 0;
+                    string numberToken = strtok(numberLine, "|");
+                    while (numberToken != NULL) {
+                        char *newLinePos;
+                        if ((newLinePos = strrchr(numberToken, '\n')) != NULL) {
+                            *newLinePos = '\0';
+                        }
+
+                        // Continue looping until the token points to the subjects
+                        if (tokenNumberIndex == index && mode == 'a') {
+                            strcpy(tmpInfo, numberToken);
+                            strcat(tmpInfo, ", ");
+                            strcat(tmpInfo, newVal);
+
+                            strcat(lineInfo, tmpInfo);
+                            strcat(lineInfo, "|");
+                        } else if (tokenNumberIndex == index && mode == 'r') {
+                            strcpy(tmpInfo, newVal);
+
+                            strcat(lineInfo, tmpInfo);
+                            strcat(lineInfo, "|");
+
+                            printf("Newval: %s\n", newVal);
+                        } else {
+                            strcat(lineInfo, numberToken);
+                            strcat(lineInfo, "|");
+                        }
+
+                        tokenNumberIndex++;
+                        numberToken = strtok(NULL, "|");
+                    }
+
+                    char *pos;
+                    if ((pos = strrchr(lineInfo, '|')) != NULL) {
+                        *pos = '\n';
+                    }
+
+                    // Replace the line with the modified line
+                    strcpy(line, lineInfo);
+
                     numberFound = true;
-                    break;
+                    goto exitPoint;
                 }
-            } else {
-                tokenNumber++;
-                token = strtok(NULL, "|");
             }
+
+            tokenNumber++;
+            token = strtok(NULL, "|");
         }
 
-        if (numberFound && !skipIf) {
-            // Let's tokenize again
-            char lineInfo[256];
-            strcpy(lineInfo, "");
-            string token = strtok(numberLine, "|\n");
-            int tokenNumber = 0;
-            while (token != NULL) {
-                // Continue looping until the token points to the subjects
-                if (tokenNumber == index && mode == 'a') {
-                    strcat(token, ", ");
-                    strcat(token, newVal);
-                } else if (tokenNumber == index && mode == 'r') {
-                    strcpy(token, newVal);
-                }
-
-                strcat(lineInfo, token);
-                strcat(lineInfo, "|");
-
-                tokenNumber++;
-                token = strtok(NULL, "|\n");
-            }
-
-            char *pos;
-            if ((pos = strrchr(lineInfo, '|')) != NULL) {
-                *pos = '\0';
-            }
-
-            strcat(lineInfo, "\n");
-
-            // Append the line to the string array
-            strcat(fileLines, lineInfo);
-
-            skipIf = true;
-        } else {
-            strcat(fileLines, line);
-        }
+        exitPoint:
+        strcat(fileLines, line);
     }
 
     fclose(fp);

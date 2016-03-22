@@ -47,8 +47,10 @@ SubjectModel_modifySubject(string subjectName,
     char line[256];
     strcpy(line, "");
     while (fgets(line, 256, fp) != NULL) {
+        char tmpLine[256];
+        strcpy(tmpLine, line);
         // Tokenize the string
-        string token = strtok(line, "|");
+        string token = strtok(tmpLine, "|");
         int tokenNumber = 0;
         while (token != NULL) {
             // Continue looping until the token points to the student number

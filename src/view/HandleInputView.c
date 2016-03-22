@@ -34,12 +34,14 @@ HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
                 if (updateOption == 1) {
                     DisplayView_printAdminUpdateStudentSubMenu();
                     if (HandleInputView_inputAdminUpdateStudent() == 4) {
-                        DisplayView_printAdminSubMenu(userOption - 1);
+                        DisplayView_printAdminUpdateStudentSubMenu(
+                            userOption - 1
+                        );
                     }
                 } else if (updateOption == 2) {
                     DisplayView_printAdminUpdateSubjectSubMenu();
                     if (HandleInputView_inputAdminUpdateSubject() == 4) {
-                        DisplayView_printAdminSubMenu(userOption - 1);
+                        DisplayView_printAdminUpdateSubjectSubMenu();
                     }
                 }
 
