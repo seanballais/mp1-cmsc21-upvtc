@@ -182,17 +182,16 @@ StudentModel_removeStudentSubject(string studentNumber,
             subjectToken++;
         }
 
-        if (loopSubjectIndex == subjectIndex) {
-            if (loopSubjectIndex != 0) {
-                strcat(subjectList, ", ");
-            }
-        } else {
+        if (loopSubjectIndex != subjectIndex) {
             strcat(subjectList, subjectToken);
-            strcat(subjectList, ", ");
         }
 
-        subjectToken = strtok(NULL, ",");
         loopSubjectIndex++;
+        subjectToken = strtok(NULL, ",");
+
+        if (subjectToken != NULL) {
+            strcat(subjectList, ", ");
+        }
     }
 
     // Remove the last comma from the subject list
@@ -214,17 +213,16 @@ StudentModel_removeStudentSubject(string studentNumber,
             gradeToken++;
         }
 
-        if (loopGradeIndex == subjectIndex) {
-            if (loopGradeIndex != 0) {
-                strcat(gradeList, ", ");
-            }
-        } else {
+        if (loopGradeIndex != subjectIndex) {
             strcat(gradeList, gradeToken);
-            strcat(gradeList, ", ");
         }
 
-        gradeToken = strtok(NULL, ",");
         loopGradeIndex++;
+        gradeToken = strtok(NULL, ",");
+
+        if (gradeToken != NULL) {
+            strcat(gradeList, ", ");
+        }
     }
 
     char *gradePos;
