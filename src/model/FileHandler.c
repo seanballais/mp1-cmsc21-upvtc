@@ -85,8 +85,6 @@ FileUtil_modifyStudentInfoProperty(const int index,
 
                             strcat(lineInfo, tmpInfo);
                             strcat(lineInfo, "|");
-
-                            printf("Newval: %s\n", newVal);
                         } else {
                             strcat(lineInfo, numberToken);
                             strcat(lineInfo, "|");
