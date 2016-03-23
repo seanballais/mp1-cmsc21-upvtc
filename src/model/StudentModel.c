@@ -456,7 +456,7 @@ StudentModel_displayStudentInfo(string studentNumber)
                             gradeToken++;
                         }
 
-                        printf("  %s - %s\n", subjectToken, gradeToken);
+                        printf("  %s - %4s\n", subjectToken, gradeToken);
 
                         subjectToken = strtok_r(NULL, ",", &subjectPtr);
                         gradeToken = strtok_r(NULL, ",", &gradePtr);

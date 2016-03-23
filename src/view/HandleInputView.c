@@ -419,7 +419,7 @@ HandleInputView_inputAdminUpdateStudent()
 
             system("clear");
         }
-    } else if (opt == 2) {
+    } else if (opt == 2) { // Update student subjects
         char studentNumber[256];
         strcpy(studentNumber, "");
 
@@ -510,31 +510,46 @@ HandleInputView_inputAdminUpdateStudent()
                     // Print criteria name
                     printf("%s: ", criteriaToken);
                     rate = GetDouble();
-
-                    index = 1;
                 } else if (index == 1) {
                     // Get the percentage and convert the rate
-                    grade += rate * (atof(token) / 100);
-
-                    index = 0;
+                    grade += rate * ((float) atof(criteriaToken) / 100.0);
                 }
 
+                index = index ^ 1;
                 criteriaToken = strtok(NULL, ",");
             }
 
             // Convert to denominations
+            double gradeRange[10] = {
+                1.00,
+                1.25,
+                1.50,
+                1.75,
+                2.00,
+                2.25,
+                2.50,
+                2.75,
+                3.00,
+                4.00
+            };
             string rangeToken = strtok(subjectRange, ",");
+            int rangeIndex = 0;
             while (rangeToken != NULL) {
                 if (rangeToken[0] == ' ') {
                     rangeToken++;
                 }
 
                 if (grade >= atof(rangeToken)) {
-                    grade = atof(rangeToken);
+                    grade = gradeRange[rangeIndex];
                     break;
                 }
 
                 rangeToken = strtok(NULL, ",");
+                rangeIndex++;
+
+                if (rangeIndex == 10) {
+                    grade = 5.00;
+                }
             }
 
             Controller_updateStudentSubjectGrade(studentNumber,
