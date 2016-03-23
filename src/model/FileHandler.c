@@ -137,7 +137,6 @@ FileUtil_getStudentInfoProperty(const int index,
     strcpy(fileLines, "");
     char line[256];
     strcpy(line, "");
-    bool numberFound = false;
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
         char tmpLine[256];
@@ -148,29 +147,26 @@ FileUtil_getStudentInfoProperty(const int index,
             // Continue looping until the token points to the student number
             if (tokenNumber == 3) { // Located the student number
                 if (strcmp(studentNumber, token) == 0) {
-                    numberFound = true;
+                    // Let's tokenize again
+                    string subToken = strtok(tmpLine, "|");
+                    int tokenNumber = 0;
+                    while (subToken != NULL) {
+                        // Continue looping until the token points to the subjects
+                        if (tokenNumber == index) {
+                            fclose(fp);
+                            return subToken;
+                        }
+
+                        tokenNumber++;
+                        subToken = strtok(NULL, "|");
+                    }
+
                     break;
                 }
-            } else {
-                tokenNumber++;
-                token = strtok(NULL, "|");
             }
-        }
 
-        if (numberFound) {
-            // Let's tokenize again
-            string token = strtok(tmpLine, "|");
-            int tokenNumber = 0;
-            while (token != NULL) {
-                // Continue looping until the token points to the subjects
-                if (tokenNumber == index) {
-                    fclose(fp);
-                    return token;
-                }
-
-                tokenNumber++;
-                token = strtok(NULL, "|");
-            }
+            tokenNumber++;
+            token = strtok(NULL, "|");
         }
     }
 
