@@ -93,6 +93,7 @@ StudentModel_modifyStudentSubjectGrade(string studentNumber,
     char subjects[256];
     strcpy(subjects, FileUtil_getStudentInfoProperty(4, studentNumber));
 
+    // Get the index of the subject
     int subjectIndex = 0;
     string token = strtok(subjects, ",");
     while (token != NULL) {
@@ -117,8 +118,8 @@ StudentModel_modifyStudentSubjectGrade(string studentNumber,
     strcpy(gradeList, "");
     string gradeToken = strtok(grades, ",");
     while (gradeToken != NULL) {
-        if (token[0] == ' ') { // Remove the first character
-            token++;
+        for (int i = 0; gradeToken[i] == ' '; i++) { // Remove the spaces
+            gradeToken++;
         }
 
         if (gradeIndex == subjectIndex) {
@@ -127,14 +128,16 @@ StudentModel_modifyStudentSubjectGrade(string studentNumber,
             sprintf(newGrade, "%f", subjectGrade);
 
             strcat(gradeList, newGrade);
-            strcat(gradeList, ", ");
+        } else {
+            strcat(gradeList, gradeToken);
         }
 
-        strcat(gradeList, gradeToken);
-        strcat(gradeList, ", ");
-
-        gradeToken = strtok(NULL, ",");
         gradeIndex++;
+        gradeToken = strtok(NULL, ",");
+
+        if (gradeToken != NULL) {
+            strcat(gradeList, ", ");
+        }
     }
 
     FileUtil_modifyStudentInfoProperty(5, studentNumber, gradeList, 'r');
@@ -456,7 +459,7 @@ StudentModel_displayStudentInfo(string studentNumber)
                             gradeToken++;
                         }
 
-                        printf("  %s - %4s\n", subjectToken, gradeToken);
+                        printf("  %s - %.4s\n", subjectToken, gradeToken);
 
                         subjectToken = strtok_r(NULL, ",", &subjectPtr);
                         gradeToken = strtok_r(NULL, ",", &gradePtr);
