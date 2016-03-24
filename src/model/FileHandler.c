@@ -96,7 +96,7 @@ FileUtil_modifyStudentInfoProperty(const int index,
 
                     char *pos;
                     if ((pos = strrchr(lineInfo, '|')) != NULL) {
-                        *pos = '\n';
+                        *pos = '\0';
                     }
 
                     // Replace the line with the modified line
