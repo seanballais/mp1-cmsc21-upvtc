@@ -161,3 +161,16 @@ DisplayView_printAdminUpdateSubjectSubMenu()
 
     return;
 }
+
+void
+DisplayView_printTeacherUpdateSubMenu()
+{
+    /*
+     * Print the submenu for the teachers.
+     */
+
+    printf("Update\n");
+    printf("  1) Update Student Grade\n");
+    printf("  2) Update Subjects\n");
+    printf("  3) Exit\n");
+}

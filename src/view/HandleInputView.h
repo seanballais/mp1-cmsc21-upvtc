@@ -23,10 +23,16 @@
     #include "../../lib/include/cs50.h"
 
     void HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege);
+
     int HandleInputView_inputAdminAdd();
     int HandleInputView_inputAdminDelete();
     int HandleInputView_inputAdminUpdateStudent();
     int HandleInputView_inputAdminUpdateSubject();
     void HandleInputView_inputAdminDisplayStudentInfo();
+
+    void HandleInputView_inputTeacherUpdateStudentGrade();
+    int HandleInputView_inputTeacherUpdateSubject();
+
+    void HandleInputView_inputStudentDisplayStudentInfo();
 
 #endif

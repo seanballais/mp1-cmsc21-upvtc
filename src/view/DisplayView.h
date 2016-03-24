@@ -24,4 +24,6 @@
     void DisplayView_printAdminUpdateStudentSubMenu();
     void DisplayView_printAdminUpdateSubjectSubMenu();
 
+    void DisplayView_printTeacherUpdateSubMenu();
+
 #endif
