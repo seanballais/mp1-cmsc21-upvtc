@@ -54,7 +54,9 @@ HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
                 DisplayView_printMenu(0); // Admin
                 HandleInputView_inputPrivilegeSubMenu(userPrivilege);
             } else if (userOption == 4) {
+                system("clear");
                 HandleInputView_inputAdminDisplayStudentInfo();
+                system("clear");
 
                 DisplayView_printMenu(userPrivilege);
                 HandleInputView_inputPrivilegeSubMenu(userPrivilege);
@@ -95,6 +97,7 @@ HandleInputView_inputPrivilegeSubMenu(const privilege userPrivilege)
                     }
                 }
             } else if (userOption == 2) { // Display
+                system("clear");
                 HandleInputView_inputAdminDisplayStudentInfo();
 
                 system("clear");
