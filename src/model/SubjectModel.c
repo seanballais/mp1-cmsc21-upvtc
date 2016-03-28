@@ -54,11 +54,11 @@ SubjectModel_modifySubject(string subjectName,
         int tokenNumber = 0;
         while (token != NULL) {
             // Continue looping until the token points to the student number
-            if (tokenNumber == 0) { // Located the student number
+            if (tokenNumber == 0) { // Located the subject
                 if (strcmp(subjectName, token) == 0) { // Replace the line
                     sprintf(
                         line,
-                        "%s|%s|%s",
+                        "%s|%s|%s\n",
                         subjectName,
                         subjectCriteria,
                         subjectRange

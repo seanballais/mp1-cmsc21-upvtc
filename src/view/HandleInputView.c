@@ -176,45 +176,9 @@ HandleInputView_inputAdminAdd()
             strcpy(studentNumber, GetString());
 
             char subjects[256];
-            strcpy(subjects, "");
+            strcpy(subjects, " ");
             char grades[256];
-            strcpy(grades, "");
-            printf("Add subjects and initial grade\n");
-            int opt = 1;
-            do {
-                printf("Subject Name: ");
-                char subjectName[256];
-                strcpy(subjectName, GetString());
-
-                printf("Grade: ");
-                char grade[256];
-                strcpy(grade, GetString());
-
-                // Add them to the subject and grade string if
-                // subject is present
-                if (Controller_subjectPresent(subjectName)) {
-                    strcat(subjects, subjectName);
-                    strcat(grades, grade);
-                } else {
-                    printf("Unknown subject %s. Add it first.\n", subjectName);
-                }
-
-                printf("Add another subject? (1 for yes, 2 for no) ");
-                opt = GetInt();
-
-                if (opt == 1) {
-                    strcat(subjects, ", ");
-                    strcat(grades, ", ");
-                }
-            } while (opt == 1);
-
-            if (strcmp(subjects, "") == 0) {
-                strcpy(subjects, " ");
-            }
-
-            if (strcmp(grades, "") == 0) {
-                strcpy(grades, " ");
-            }
+            strcpy(grades, " ");
 
             Controller_addStudent(
                 name,

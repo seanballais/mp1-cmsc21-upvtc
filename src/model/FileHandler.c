@@ -42,7 +42,6 @@ FileUtil_modifyStudentInfoProperty(const int index,
 
     char line[256];
     strcpy(line, "");
-    bool numberFound = false;
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
         char tmpLine[256];
@@ -53,11 +52,10 @@ FileUtil_modifyStudentInfoProperty(const int index,
 
         int tokenNumber = 0;
         string token = strtok(tmpLine, "|");
-        while (token != NULL && !numberFound) {
+        while (token != NULL) {
             // Continue looping until the token points to the student number
             if (tokenNumber == 3) { // Located the student number
-                // Modify line
-                if (strcmp(studentNumber, token) == 0) {
+                if (strcmp(studentNumber, token) == 0) { // Modify line
                     char lineInfo[256];
                     strcpy(lineInfo, "");
 
@@ -101,8 +99,7 @@ FileUtil_modifyStudentInfoProperty(const int index,
 
                     // Replace the line with the modified line
                     strcpy(line, lineInfo);
-
-                    numberFound = true;
+                    strcat(line, "\n");
                 }
             }
 

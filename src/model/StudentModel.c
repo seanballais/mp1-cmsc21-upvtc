@@ -116,6 +116,7 @@ StudentModel_modifyStudentSubjectGrade(string studentNumber,
     int gradeIndex = 0;
     char gradeList[256];
     strcpy(gradeList, "");
+
     string gradeToken = strtok(grades, ",");
     while (gradeToken != NULL) {
         for (int i = 0; gradeToken[i] == ' '; i++) { // Remove the spaces

@@ -12,6 +12,7 @@
     #include <string.h>
     #include <stdbool.h>
     #include <stdlib.h>
+    #include <ctype.h>
 
     // Project headers
     #include "../utils/DataTypeDefinitions.h"
