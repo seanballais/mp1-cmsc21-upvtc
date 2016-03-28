@@ -208,6 +208,14 @@ HandleInputView_inputAdminAdd()
                 }
             } while (opt == 1);
 
+            if (strcmp(subjects, "") == 0) {
+                strcpy(subjects, " ");
+            }
+
+            if (strcmp(grades, "") == 0) {
+                strcpy(grades, " ");
+            }
+
             Controller_addStudent(
                 name,
                 course,

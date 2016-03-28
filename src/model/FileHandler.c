@@ -103,7 +103,6 @@ FileUtil_modifyStudentInfoProperty(const int index,
                     strcpy(line, lineInfo);
 
                     numberFound = true;
-                    goto exitPoint;
                 }
             }
 
@@ -111,7 +110,6 @@ FileUtil_modifyStudentInfoProperty(const int index,
             token = strtok(NULL, "|");
         }
 
-        exitPoint:
         strcat(fileLines, line);
     }
 
