@@ -513,3 +513,36 @@ StudentModel_displayAllStudentInfo()
 
     return;
 }
+
+bool
+StudentModel_studentPresent(string studentNumber)
+{
+    /*
+     * Check if a student is present.
+     */
+
+    FILE *fp = FileUtil_openFile("StudentInfo.txt", "r");
+
+    char fileLines[256];
+    strcpy(fileLines, "");
+    char line[256];
+    strcpy(line, "");
+    while (fgets(line, 256, fp) != NULL) {
+        // Tokenize the string
+        string token = strtok(line, "|");
+        int tokenNumber = 0;
+        while (token != NULL) {
+            // Continue looping until the token points to the student number
+            if (strcmp(token, studentNumber) == 0) { // Located the student number
+                return true;
+            }
+
+            tokenNumber++;
+            token = strtok(NULL, "|");
+        }
+    }
+
+    fclose(fp);
+
+    return false;
+}

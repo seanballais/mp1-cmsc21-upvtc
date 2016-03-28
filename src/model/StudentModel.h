@@ -9,7 +9,7 @@
 #define STUDENTMODEL_H
 
     #include <stdio.h>
-
+    #include <stdbool.h>
     #include <string.h>
 
     extern char *strtok_r(char *, const char *, char **);
@@ -43,5 +43,6 @@
     void StudentModel_removeStudent(string studentNumber);
     void StudentModel_displayStudentInfo(string studentNumber);
     void StudentModel_displayAllStudentInfo();
+    bool StudentModel_studentPresent(string studentNumber);
 
 #endif

@@ -55,5 +55,6 @@
     void Controller_displayStudentInfo(char studentNumber[]);
     void Controller_displayAllStudentInfo();
     bool Controller_subjectPresent(string subjectName);
+    bool Controller_studentPresent(string studentNumber);
 
 #endif

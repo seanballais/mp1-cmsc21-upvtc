@@ -352,10 +352,16 @@ HandleInputView_inputAdminDelete()
             char studentNumber[256];
             strcpy(studentNumber, GetString());
 
-            Controller_removeStudent(studentNumber);
+            if (!Controller_studentPresent(studentNumber)) {
+                printf("Student %s does not exist.\n", studentNumber);
+            } else {
+                Controller_removeStudent(studentNumber);
+            }
+
 
             printf("Delete another student? (1 for yes, 2 for no) ");
             int deleteOpt = GetInt();
+            bailOutDeleteStudent:
 
             if (deleteOpt != 1) {
                 deleteStudent = false;
@@ -369,9 +375,12 @@ HandleInputView_inputAdminDelete()
             char subjectName[256];
             strcpy(subjectName, GetString());
 
-            printf("Okay\n");
+            if (!Controller_subjectPresent(subjectName)) {
+                printf("Student %s does not exist.\n", subjectName);
+            } else {
+                Controller_removeSubject(subjectName);
+            }
 
-            Controller_removeSubject(subjectName);
 
             printf("Delete another subject? (1 for yes, 2 for no) ");
             int deleteOpt = GetInt();
@@ -422,6 +431,13 @@ HandleInputView_inputAdminUpdateStudent()
             printf("Student Number: ");
             strcpy(studentNumber, GetString());
 
+            if (!Controller_studentPresent(studentNumber)) {
+                printf("Student %s does not exist.\n", studentNumber);
+                printf("Press enter to continue...");
+                getchar();
+                goto bailOutUpdateStudent;
+            }
+
             printf("Updating details\n");
             printf("Name: ");
             strcpy(name, GetString());
@@ -455,9 +471,9 @@ HandleInputView_inputAdminUpdateStudent()
             );
 
             printf("Updated student %s.\n", name);
-
             printf("Update more students? (1 for yes, 2 for no) ");
             int studOpt = GetInt();
+            bailOutUpdateStudent:
 
             if (studOpt != 1) {
                 updateStudents = false;
@@ -472,8 +488,15 @@ HandleInputView_inputAdminUpdateStudent()
         printf("Update Student Subjects\n");
         printf("Student Number: ");
         strcpy(studentNumber, GetString());
-
         bool updateSubjects = true;
+
+        if (!Controller_studentPresent(studentNumber)) {
+            printf("Student %s does not exist.\n", studentNumber);
+            printf("Press Enter to continue...");
+            getchar();
+            updateSubjects = false;
+        }
+
         while (updateSubjects) {
             int opt = 1;
             printf("Add (1) or Remove (2) subjects? ");
@@ -522,6 +545,10 @@ HandleInputView_inputAdminUpdateStudent()
         printf("Student Number: ");
         strcpy(studentNumber, GetString());
 
+        if (!Controller_studentPresent(studentNumber)) {
+            printf("Student %s does not exist.\n", studentNumber);
+            goto bailOut;
+        }
         bool updateSubjectGrades = true;
         while (updateSubjectGrades) {
             // Print the subjects
@@ -787,7 +814,7 @@ HandleInputView_inputAdminDisplayStudentInfo()
     int opt = GetInt();
 
     if (opt == 1) { // Display all student info
-        printf("Display all student info.\n");
+        printf("Display all Student info.\n");
         Controller_displayAllStudentInfo();
 
         printf("Press Enter key to continue...");
@@ -798,8 +825,11 @@ HandleInputView_inputAdminDisplayStudentInfo()
 
         char studentNumber[256];
         strcpy(studentNumber, GetString());
-
-        Controller_displayStudentInfo(studentNumber);
+        if(Controller_studentPresent(studentNumber)) {
+            Controller_displayStudentInfo(studentNumber);
+        } else {
+            printf("Student %s does not exist.\n", studentNumber);
+        }
 
         printf("Press Enter key to continue...");
         getchar();
@@ -823,6 +853,13 @@ HandleInputView_inputTeacherUpdateStudentGrade()
      strcpy(studentNumber, GetString());
 
      bool updateSubjectGrades = true;
+     if(Controller_studentPresent(studentNumber)) {
+         Controller_displayStudentInfo(studentNumber);
+     } else {
+         printf("Student %s does not exist.\n", studentNumber);
+         goto bailOutUpdate;
+     }
+
      while (updateSubjectGrades) {
          // Print the subjects
          printf("Subjects of %s\n", studentNumber);
@@ -955,7 +992,11 @@ HandleInputView_inputStudentDisplayStudentInfo()
     char studentNumber[256];
     strcpy(studentNumber, GetString());
 
-    Controller_displayStudentInfo(studentNumber);
+    if (Controller_studentPresent(studentNumber)) {
+        Controller_displayStudentInfo(studentNumber);
+    } else {
+        printf("Student %s does not exist.\n", studentNumber);
+    }
 
     printf("Press Enter key to continue...");
     getchar();

@@ -252,3 +252,13 @@ Controller_subjectPresent(string subjectName)
 
     return SubjectModel_subjectPresent(subjectName);
 }
+
+bool
+Controller_studentPresent(string studentNumber)
+{
+    /*
+     * Check if a student is present.
+     */
+
+    return StudentModel_studentPresent(studentNumber);
+}
