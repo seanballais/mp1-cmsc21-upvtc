@@ -181,7 +181,6 @@ HandleInputView_inputAdminAdd()
             strcpy(grades, "");
             printf("Add subjects and initial grade\n");
             int opt = 1;
-            bool subjectAvailable = false;
             do {
                 printf("Subject Name: ");
                 char subjectName[256];
@@ -191,15 +190,13 @@ HandleInputView_inputAdminAdd()
                 char grade[256];
                 strcpy(grade, GetString());
 
-                // Check if subject is present.
-                
-
-                // Add them to the subject and grade string
-                if (subjectAvailable) {
+                // Add them to the subject and grade string if
+                // subject is present
+                if (Controller_subjectPresent(subjectName)) {
                     strcat(subjects, subjectName);
                     strcat(grades, grade);
                 } else {
-                    printf("Subject %s is unknown.\n", subjectName);
+                    printf("Unknown subject %s. Add it first.\n", subjectName);
                 }
 
                 printf("Add another subject? (1 for yes, 2 for no) ");
@@ -488,7 +485,12 @@ HandleInputView_inputAdminUpdateStudent()
                 printf("Subject to add: ");
                 strcpy(subject, GetString());
 
-                Controller_addStudentSubject(studentNumber, subject);
+                if (Controller_subjectPresent(subject)) {
+                    Controller_addStudentSubject(studentNumber, subject);
+                } else {
+                    printf("Subject %s is unknown.\n", subject);
+                }
+
             } else if (opt == 2) {
                 char subject[256];
                 strcpy(subject, "");
@@ -496,7 +498,11 @@ HandleInputView_inputAdminUpdateStudent()
                 printf("Subject to remove: ");
                 strcpy(subject, GetString());
 
-                Controller_removeStudentSubject(studentNumber, subject);
+                if (Controller_subjectPresent(subject)) {
+                    Controller_removeStudentSubject(studentNumber, subject);
+                } else {
+                    printf("Subject %s is unknown.\n", subject);
+                }
             }
 
             printf("Add or remove more subjects? (1 for yes, 2 for no) ");
@@ -537,6 +543,11 @@ HandleInputView_inputAdminUpdateStudent()
             strcpy(subject, "");
             printf("Subject to update the grade: ");
             strcpy(subject, GetString());
+
+            if (!Controller_subjectPresent(subject)) {
+                printf("Subject %s is unknown.\n", subject);
+                goto bailOut;
+            }
 
             // Now get the grade
             char subjectCriteria[256];
@@ -605,6 +616,8 @@ HandleInputView_inputAdminUpdateStudent()
                                                  subject,
                                                  grade);
 
+            bailOut:
+
             printf("Update more grades of subject? (1 for yes, 2 for no) ");
             opt = GetInt();
 
@@ -646,6 +659,11 @@ HandleInputView_inputAdminUpdateSubject()
 
             printf("Subject name: ");
             strcpy(subjectName, GetString());
+
+            if (!Controller_subjectPresent(subjectName)) {
+                printf("Subject %s is unknown.\n", subjectName);
+                goto bailOut2;
+            }
 
             char criteria[256];
             strcpy(criteria, "");
@@ -689,6 +707,8 @@ HandleInputView_inputAdminUpdateSubject()
 
             Controller_updateSubjectCriteria(subjectName, criteria);
 
+            bailOut2:
+
             printf("Update another subject? (1 for yes, 2 for no) ");
             opt = GetInt();
 
@@ -705,6 +725,11 @@ HandleInputView_inputAdminUpdateSubject()
 
             char subjectName[256];
             strcpy(subjectName, GetString());
+
+            if (!Controller_subjectPresent(subjectName)) {
+                printf("Subject %s is unknown.\n", subjectName);
+                goto bailOut3;
+            }
 
             char subjectRange[256];
             strcpy(subjectRange, "");
@@ -734,6 +759,8 @@ HandleInputView_inputAdminUpdateSubject()
             }
 
             Controller_updateSubjectRange(subjectName, subjectRange);
+
+            bailOut3:
 
             printf("Update another subject's range? (1 for yes, 2 for no) ");
             opt = GetInt();
@@ -817,6 +844,11 @@ HandleInputView_inputTeacherUpdateStudentGrade()
          printf("Subject to update the grade: ");
          strcpy(subject, GetString());
 
+         if (!Controller_subjectPresent(subject)) {
+             printf("Subject %s is unknown.\n", subject);
+             goto bailOutUpdate;
+         }
+
          // Now get the grade
          char subjectCriteria[256];
          strcpy(subjectCriteria, Controller_getSubjectCriteria(subject));
@@ -883,6 +915,8 @@ HandleInputView_inputTeacherUpdateStudentGrade()
          Controller_updateStudentSubjectGrade(studentNumber,
                                               subject,
                                               grade);
+
+        bailOutUpdate:
 
          printf("Update more grades of subject? (1 for yes, 2 for no) ");
          int opt = GetInt();
