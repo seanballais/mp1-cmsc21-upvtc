@@ -258,14 +258,13 @@ SubjectModel_listSubjects()
     strcpy(fileLines, "");
     char line[256];
     strcpy(line, "");
-    bool subjectFound = false;
     while (fgets(line, 256, fp) != NULL) {
         // Tokenize the string
         string token = strtok(line, "|");
         int tokenNumber = 0;
         while (token != NULL) {
             // Continue looping until the token points to the student number
-            if (tokenNumber == 0) { // Located the student number
+            if (tokenNumber == 0) { // Located the subject
                 printf(" - %s\n", token);
                 break;
             }
@@ -276,4 +275,37 @@ SubjectModel_listSubjects()
     }
 
     fclose(fp);
+}
+
+bool
+SubjectModel_subjectPresent(string subjectName)
+{
+    /*
+     * Check if a subject is present.
+     */
+
+    FILE *fp = FileUtil_openFile("SubjectInfo.txt", "r");
+
+    char fileLines[256];
+    strcpy(fileLines, "");
+    char line[256];
+    strcpy(line, "");
+    while (fgets(line, 256, fp) != NULL) {
+        // Tokenize the string
+        string token = strtok(line, "|");
+        int tokenNumber = 0;
+        while (token != NULL) {
+            // Continue looping until the token points to the student number
+            if (strcmp(token, subjectName) == 0) { // Located the subject
+                return true;
+            }
+
+            tokenNumber++;
+            token = strtok(NULL, "|");
+        }
+    }
+
+    fclose(fp);
+
+    return false;
 }

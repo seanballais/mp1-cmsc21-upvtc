@@ -9,6 +9,7 @@
 #define CONTROLLER_H
 
     #include <stdio.h>
+    #include <stdbool.h>
 
     // Project headers
     #include "../utils/DataTypeDefinitions.h"
@@ -53,5 +54,6 @@
     string Controller_getSubjectRange(string subjectName);
     void Controller_displayStudentInfo(char studentNumber[]);
     void Controller_displayAllStudentInfo();
+    bool Controller_subjectPresent(string subjectName);
 
 #endif

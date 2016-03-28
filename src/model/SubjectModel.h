@@ -10,6 +10,7 @@
 
     #include <stdio.h>
     #include <string.h>
+    #include <stdbool.h>
 
     // Project headers
     #include "../utils/DataTypeDefinitions.h"
@@ -25,5 +26,6 @@
     string SubjectModel_getSubjectCriteria(string subjectName);
     string SubjectModel_getSubjectRange(string subjectName);
     void SubjectModel_listSubjects();
+    bool SubjectModel_subjectPresent(string subjectName);
 
 #endif

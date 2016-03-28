@@ -242,3 +242,13 @@ Controller_getStudentSubjectsGrade(string studentNumber)
 
     return StudentModel_getStudentSubjectsGrade(studentNumber);
 }
+
+bool
+Controller_subjectPresent(string subjectName)
+{
+    /*
+     * Check if a subject is present.
+     */
+
+    return SubjectModel_subjectPresent(subjectName);
+}

@@ -181,6 +181,7 @@ HandleInputView_inputAdminAdd()
             strcpy(grades, "");
             printf("Add subjects and initial grade\n");
             int opt = 1;
+            bool subjectAvailable = false;
             do {
                 printf("Subject Name: ");
                 char subjectName[256];
@@ -190,9 +191,16 @@ HandleInputView_inputAdminAdd()
                 char grade[256];
                 strcpy(grade, GetString());
 
+                // Check if subject is present.
+                
+
                 // Add them to the subject and grade string
-                strcat(subjects, subjectName);
-                strcat(grades, grade);
+                if (subjectAvailable) {
+                    strcat(subjects, subjectName);
+                    strcat(grades, grade);
+                } else {
+                    printf("Subject %s is unknown.\n", subjectName);
+                }
 
                 printf("Add another subject? (1 for yes, 2 for no) ");
                 opt = GetInt();
